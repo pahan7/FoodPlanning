@@ -13,7 +13,7 @@ public class Order {
     @Column(name = "ID")
     private int orderId;
 
-    @OneToMany(cascade = CascadeType.ALL)//, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Meal> mealList;
 
     @ManyToOne
@@ -27,7 +27,6 @@ public class Order {
     public void setUser(User user) {
         this.user = user;
     }
-
 
     public int getOrderId() {
         return orderId;

@@ -30,6 +30,6 @@ public class CafeController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> cafePost(@RequestBody Cafe cafe) {
         cafeRepository.save(cafe);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
