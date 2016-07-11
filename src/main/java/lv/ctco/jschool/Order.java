@@ -12,11 +12,22 @@ public class Order {
     @Column
     private int orderId;
 
+    @Column
+    private Meal meal;
+
     public int getOrderId() {
         return orderId;
     }
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
     }
 }

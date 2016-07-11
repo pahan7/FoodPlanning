@@ -11,10 +11,11 @@ public class User {
     @GeneratedValue
     @Column(name = "ID")
     private int id;
+
     private String firstName;
 
-   // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //private List<lv.ctco.jschool.Order> orderList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> orderList = new ArrayList<>();
 
     public String getFirstName() {
         return firstName;
@@ -22,6 +23,14 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public int getId() {
