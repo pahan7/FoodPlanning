@@ -1,7 +1,5 @@
 package lv.ctco.jschool;
 
-import lv.ctco.jschool.Meal;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,6 +14,7 @@ public class Order {
     private List<Meal> mealList;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public int getOrderId() {

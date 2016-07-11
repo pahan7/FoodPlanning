@@ -1,7 +1,4 @@
 package lv.ctco.jschool;
-
-import lv.ctco.jschool.Order;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +11,8 @@ public class User {
     @Column(name = "ID")
     private int id;
 
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> orderList;
 
     public String getFirstName() {
         return firstName;
@@ -25,14 +20,6 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public List<Order> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
     }
 
     public int getId() {
