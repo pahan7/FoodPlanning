@@ -7,7 +7,7 @@ function loadCafe() {
 }
 
 function drawCafeList() {
-    loadcafes().then(function(cafes) {
+    loadCafe().then(function(cafes) {
         var cafeListTemplate = Handlebars.compile(document.querySelector('#cafe-list').innerHTML);
         var cafeTemplate = Handlebars.compile(document.querySelector('#cafe').innerHTML);
 
