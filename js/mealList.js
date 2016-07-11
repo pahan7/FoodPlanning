@@ -1,6 +1,6 @@
 
 function loadCafe() {
-    return fetch('./data/cafeList.json')
+    return fetch('./data/cafeAndMeals.json')
         .then(function(response) {
             return response.json();
         });
@@ -12,8 +12,12 @@ function drawCafeList() {
         var cafeTemplate = Handlebars.compile(document.querySelector('#cafe').innerHTML);
 
         var cafeList = '';
+        var mealList='';
+
         cafes.forEach(function(cafe) {
             cafeList += cafeTemplate(cafe);
+        }).forEach(function(meal){
+            mealList += cafeTemplate(meal)
         });
 
         var cafeList = cafeListTemplate({

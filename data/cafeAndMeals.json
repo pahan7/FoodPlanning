@@ -20,7 +20,7 @@
     ]
   },
 
-  { "cafeName": "BestCafe",
+  { "cafeName": "BestCafeterija",
     "meals" :[
       {"name" : "Vkusnaja eda"},
       {"name" : "Vtoroe"}
