@@ -1,0 +1,29 @@
+[
+  { "cafeName": "Pusdienas.lv",
+    "meals" :[
+      { "name" : "Omlet"},
+      { "name" : "Soup"}
+    ]
+  },
+
+  { "cafeName": "Lido",
+    "meals" :[
+      { "name" : "Kotlete"  },
+      { "name" : "Makaroni" }
+    ]
+  },
+
+  { "cafeName": "McDonalds",
+    "meals" :[
+      {"name" : "Butiki"},
+      {"name" : "Kartoshka"}
+    ]
+  },
+
+  { "cafeName": "BestCafe",
+    "meals" :[
+      {"name" : "Vkusnaja eda"},
+      {"name" : "Vtoroe"}
+    ]
+  }
+]
