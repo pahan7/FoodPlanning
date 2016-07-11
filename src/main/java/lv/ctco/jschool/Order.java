@@ -1,3 +1,7 @@
+package lv.ctco.jschool;
+
+import lv.ctco.jschool.Meal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

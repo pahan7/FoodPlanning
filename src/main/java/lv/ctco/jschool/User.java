@@ -1,6 +1,8 @@
+package lv.ctco.jschool;
+
+import lv.ctco.jschool.Order;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class User {
@@ -27,6 +29,7 @@ public class User {
         this.firstName = firstName;
     }
 
+
     public Order getOrder() {
         return order;
     }
@@ -34,6 +37,7 @@ public class User {
     public void setOrder(Order order) {
         this.order = order;
     }
+
 
     public int getId() {
         return id;
