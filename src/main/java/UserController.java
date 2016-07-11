@@ -23,6 +23,6 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> studentsPost(@RequestBody User user) {
         userRepository.save(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
