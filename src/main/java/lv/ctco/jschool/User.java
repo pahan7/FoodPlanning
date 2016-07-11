@@ -13,12 +13,11 @@ public class User {
     @GeneratedValue
     @Column(name = "ID")
     private int id;
-    private static int ID_GENERATOR = 0;
 
     private String firstName;
 
-    @Column
-    private Order order;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> orderList;
 
     public String getFirstName() {
         return firstName;
@@ -28,15 +27,13 @@ public class User {
         this.firstName = firstName;
     }
 
-
-    public Order getOrder() {
-        return order;
+    public List<Order> getOrderList() {
+        return orderList;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
-
 
     public int getId() {
         return id;

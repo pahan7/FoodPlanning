@@ -2,10 +2,8 @@ package lv.ctco.jschool;
 
 import lv.ctco.jschool.Meal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Order {
@@ -14,8 +12,11 @@ public class Order {
     @Column
     private int orderId;
 
-    @Column
-    private Meal meal;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Meal> mealList;
+
+    @ManyToOne
+    private User user;
 
     public int getOrderId() {
         return orderId;
@@ -25,11 +26,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Meal getMeal() {
-        return meal;
+    public List<Meal> getMealList() {
+        return mealList;
     }
 
-    public void setMeal(Meal meal) {
-        this.meal = meal;
+    public void setMealList(List<Meal> mealList) {
+        this.mealList = mealList;
     }
 }
