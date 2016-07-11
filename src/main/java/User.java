@@ -8,12 +8,16 @@ public class User {
     @GeneratedValue
     @Column
     private int id;
+    private static int ID_GENERATOR = 0;
 
-    @Column
     private String firstName;
 
     @Column
     private Order order;
+
+    public User(){
+        id = ID_GENERATOR++;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -29,5 +33,13 @@ public class User {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
