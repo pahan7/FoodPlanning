@@ -8,26 +8,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/cafes")
+public class CafeController {
 
     @Autowired
-    UserRepository userRepository;
+    CafeRepository cafeRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> cafeGet() {
-        List<User> user = userRepository.findAll();
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        List<Cafe> cafe = cafeRepository.findAll();
+        return new ResponseEntity<>(cafe, HttpStatus.OK);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> cafePost(@RequestBody User user) {
-        userRepository.save(user);
+    public ResponseEntity<?> cafePost(@RequestBody Cafe cafe) {
+        cafeRepository.save(cafe);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

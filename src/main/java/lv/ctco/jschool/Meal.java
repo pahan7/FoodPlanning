@@ -12,9 +12,9 @@ public class Meal {
     private String mealName;
 
     @ManyToOne
-    private Cafe cafe;
-
-    @ManyToOne
     private Order order;
 
+    @ManyToOne
+    @JoinColumn(name = "cafe_id")
+    private Cafe cafe;
 }
