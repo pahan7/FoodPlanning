@@ -3,13 +3,17 @@ package lv.ctco.jschool;
 import lv.ctco.jschool.Order;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "ID")
     private int id;
+    private static int ID_GENERATOR = 0;
 
     private String firstName;
 
