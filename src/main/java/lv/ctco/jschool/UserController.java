@@ -21,11 +21,17 @@ public class UserController {
 
     private List<User> users = new ArrayList<User>();
 
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> getAllUsers() {
+        users = userRepository.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
+    /*
     @RequestMapping(path = "/{id}/order", method = RequestMethod.POST)
     public ResponseEntity<?> addOrder(@PathVariable("id") int id, @RequestBody Order order) {
 
-        if (order.getMeal().equals("")) {
+        if (order.getMealList().equals("")) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             User u1 = userRepository.findOne(id);
@@ -35,23 +41,21 @@ public class UserController {
         }
     }
 
+    @RequestMapping(path = "/{id}/order", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteOrder(@PathVariable("id") int id, @PathVariable("id2") int id2) {
 
-
-    /*@RequestMapping(path = "/{id}/order", method = RequestMethod.PUT)
-    public ResponseEntity<?> changeOrder(@PathVariable("id") int id, @RequestBody lv.ctco.jschool.Order order) {
-
-        lv.ctco.jschool.User u1 = userRepository.findOne(id);
-        u1.setOrder(order);
+        User u1 = userRepository.findOne(id);
+        u1.setOrder(null);
         userRepository.save(u1);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     */
-
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> studentsPost(@RequestBody User user) {
         userRepository.save(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

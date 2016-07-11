@@ -1,23 +1,23 @@
 package lv.ctco.jschool;
 
+import lv.ctco.jschool.Order;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "USERS")
 public class User {
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "ID")
     private int id;
-    private static int ID_GENERATOR = 0;
 
     private String firstName;
 
-    @Column
-    private Order order;
-
-    public User(){
-        id = ID_GENERATOR++;
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> orderList;
 
     public String getFirstName() {
         return firstName;
@@ -27,12 +27,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public Order getOrder() {
-        return order;
+    public List<Order> getOrderList() {
+        return orderList;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 
     public int getId() {
