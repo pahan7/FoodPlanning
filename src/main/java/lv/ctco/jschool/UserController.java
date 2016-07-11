@@ -40,18 +40,25 @@ public class UserController {
         }
     }
 
+    @RequestMapping(path = "/{id}/order", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteOrder(@PathVariable("id") int id, @PathVariable("id2") int id2) {
+        User u1 = userRepository.findOne(id);
+        u1.setOrder(null);
+        userRepository.save(u1);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 
     /*@RequestMapping(path = "/{id}/order", method = RequestMethod.PUT)
-    public ResponseEntity<?> changeOrder(@PathVariable("id") int id, @RequestBody Order order) {
+    public ResponseEntity<?> changeOrder(@PathVariable("id") int id, @RequestBody lv.ctco.jschool.Order order) {
 
-        User u1 = userRepository.findOne(id);
+        lv.ctco.jschool.User u1 = userRepository.findOne(id);
         u1.setOrder(order);
         userRepository.save(u1);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     */
-
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)

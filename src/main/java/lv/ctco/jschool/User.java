@@ -10,16 +10,11 @@ public class User {
     @GeneratedValue
     @Column
     private int id;
-    private static int ID_GENERATOR = 0;
 
     private String firstName;
 
     @Column
     private Order order;
-
-    public User(){
-        id = ID_GENERATOR++;
-    }
 
     public String getFirstName() {
         return firstName;
