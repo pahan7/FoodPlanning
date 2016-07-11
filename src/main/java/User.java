@@ -12,8 +12,8 @@ public class User {
     @Column
     private String firstName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> orderList = new ArrayList<>();
+    @Column
+    private Order order;
 
     public String getFirstName() {
         return firstName;
@@ -21,5 +21,13 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
