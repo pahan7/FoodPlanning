@@ -11,7 +11,11 @@ public class Meal {
     @Column
     private String mealName;
 
+    //@ManyToOne
+    //private Cafe cafe;
+
     @ManyToOne
+    @JoinColumn(name = "cafe_id")
     private Cafe cafe;
 
     @ManyToOne

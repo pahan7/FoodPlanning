@@ -1,3 +1,4 @@
+
 package lv.ctco.jschool;
 
 import lv.ctco.jschool.db.OrderRepository;
@@ -73,4 +74,5 @@ public class UserController {
         userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
 }

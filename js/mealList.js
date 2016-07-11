@@ -1,19 +1,23 @@
 
 function loadCafe() {
-    return fetch('./data/cafeList.json')
+    return fetch('./data/cafeAndMeals.json')
         .then(function(response) {
             return response.json();
         });
 }
 
 function drawCafeList() {
-    loadcafes().then(function(cafes) {
+    loadCafe().then(function(cafes) {
         var cafeListTemplate = Handlebars.compile(document.querySelector('#cafe-list').innerHTML);
         var cafeTemplate = Handlebars.compile(document.querySelector('#cafe').innerHTML);
 
         var cafeList = '';
+        var mealList='';
+
         cafes.forEach(function(cafe) {
             cafeList += cafeTemplate(cafe);
+        }).forEach(function(meal){
+            mealList += cafeTemplate(meal)
         });
 
         var cafeList = cafeListTemplate({

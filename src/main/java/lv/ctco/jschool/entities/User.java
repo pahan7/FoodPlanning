@@ -1,5 +1,5 @@
-package lv.ctco.jschool.entities;
 
+package lv.ctco.jschool.entities;
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +10,7 @@ public class User {
     @Column(name = "ID")
     private int id;
 
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     public String getFirstName() {
@@ -19,7 +20,6 @@ public class User {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
 
     public int getId() {
         return id;
