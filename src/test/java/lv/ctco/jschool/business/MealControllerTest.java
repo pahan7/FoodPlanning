@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import static io.restassured.RestAssured.given;
+import static lv.ctco.jschool.Consts.*;
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -35,13 +36,13 @@ public class MealControllerTest {
     public void postMealTest() throws Exception {
         User user = new User();
         user.setFirstName("John");
-        Headers header = given().contentType("application/json").body(user).when().post("/users").getHeaders();
+        Headers header = given().contentType(JSON).body(user).when().post(USER_PATH).getHeaders();
 
         Order order = new Order();
-        Headers header1 = given().contentType("application/json").body(order).when().post(header.getValue("Location") + "/orders").getHeaders();
+        Headers header1 = given().contentType(JSON).body(order).when().post(header.getValue("Location") + ORDER_PATH).getHeaders();
 
         Meal meal = new Meal();
-        given().contentType("application/json").body(order).when().post(header1.getValue("Location") + "/meals").then().statusCode(CREATED.value());
+        given().contentType(JSON).body(order).when().post(header1.getValue("Location") + MEAL_PATH).then().statusCode(CREATED.value());
 
     }
 }

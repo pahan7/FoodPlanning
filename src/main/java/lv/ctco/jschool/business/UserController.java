@@ -22,8 +22,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lv.ctco.jschool.Consts.USER_PATH;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping(USER_PATH)
 public class UserController {
 
     @Autowired
@@ -45,7 +47,7 @@ public class UserController {
         userRepository.save(user);
 
         UriComponents uriComponents =
-                b.path("/users/{id}").buildAndExpand(user.getId());
+                b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(uriComponents.toUri());

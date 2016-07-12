@@ -14,8 +14,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
+import static lv.ctco.jschool.Consts.ORDER_PATH;
+import static lv.ctco.jschool.Consts.USER_PATH;
+
 @RestController
-@RequestMapping("/users/{id}/orders")
+@RequestMapping(USER_PATH + "/{id}" + ORDER_PATH)
 public class OrderController {
 
     @Autowired
@@ -39,7 +42,7 @@ public class OrderController {
 
 
         UriComponents uriComponents =
-                b.path("/users/{id}/orders/{oid}").buildAndExpand(u1.getId(), order.getOrderId());
+                b.path(USER_PATH + "/{id}" + ORDER_PATH + "/{oid}").buildAndExpand(u1.getId(), order.getOrderId());
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(uriComponents.toUri());

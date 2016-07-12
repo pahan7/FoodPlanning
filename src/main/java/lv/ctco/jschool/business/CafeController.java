@@ -1,5 +1,6 @@
 package lv.ctco.jschool.business;
 
+import lv.ctco.jschool.Consts;
 import lv.ctco.jschool.db.CafeRepository;
 import lv.ctco.jschool.entities.Cafe;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,10 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import static lv.ctco.jschool.Consts.*;
 
 @RestController
-@RequestMapping("/cafes")
+@RequestMapping(CAFE_PATH)
 public class CafeController {
 
     @Autowired
@@ -39,7 +41,7 @@ public class CafeController {
     public ResponseEntity<?> postCafe(@RequestBody Cafe cafe, UriComponentsBuilder b) {
         cafeRepository.save(cafe);
         UriComponents uriComponents =
-                b.path("cafes/{id}").buildAndExpand(cafe.getId());
+                b.path(CAFE_PATH + "/{id}").buildAndExpand(cafe.getId());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(uriComponents.toUri());
         return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);

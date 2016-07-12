@@ -17,6 +17,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
+import static lv.ctco.jschool.Consts.BAD_ID;
+import static lv.ctco.jschool.Consts.ORDER_PATH;
+import static lv.ctco.jschool.Consts.USER_PATH;
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpStatus.*;
 
@@ -36,25 +39,25 @@ public class OrderControllerTest {
     public void getOrdersTest() {
         User user = new User();
         user.setFirstName("John");
-        Headers header = given().contentType("application/json").body(user).when().post("/users").getHeaders();
+        Headers header = given().contentType("application/json").body(user).when().post(USER_PATH).getHeaders();
 
-        get(header.getValue("Location") + "/orders").then().statusCode(OK.value());
+        get(header.getValue("Location") + ORDER_PATH).then().statusCode(OK.value());
     }
 
     @Test
     public void getOrdersFailTest() {
-        get("users/-1/orders").then().statusCode(NOT_FOUND.value());
+        get(USER_PATH + BAD_ID + ORDER_PATH).then().statusCode(NOT_FOUND.value());
     }
 
     @Test
     public void postOrderTest() throws Exception {
         User user = new User();
         user.setFirstName("John");
-        Headers header = given().contentType("application/json").body(user).when().post("/users").getHeaders();
+        Headers header = given().contentType("application/json").body(user).when().post(USER_PATH).getHeaders();
 
         Order order = new Order();
 
-        given().contentType("application/json").body(order).when().post(header.getValue("Location") +"/orders").then().statusCode(CREATED.value());
+        given().contentType("application/json").body(order).when().post(header.getValue("Location") + ORDER_PATH).then().statusCode(CREATED.value());
 
     }
 }

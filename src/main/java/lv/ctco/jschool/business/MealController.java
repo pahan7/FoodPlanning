@@ -16,8 +16,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static lv.ctco.jschool.Consts.*;
+import static lv.ctco.jschool.Consts.USER_PATH;
+
 @RestController
-@RequestMapping("/users/{id}/orders/{oid}/meals")
+@RequestMapping(USER_PATH + "/{id}" + ORDER_PATH + "/{oid}" + MEAL_PATH)
 public class MealController {
 
     @Autowired
@@ -39,7 +42,7 @@ public class MealController {
         orderRepository.save(order);
 
         UriComponents uriComponents =
-                b.path("/users/{id}/orders/{oid}/meals/{mid}").buildAndExpand(u1.getId(), order.getOrderId(), meal.getId());
+                b.path(USER_PATH + "/{id}" + ORDER_PATH + "/{oid}" + MEAL_PATH + "/{mid}").buildAndExpand(u1.getId(), order.getOrderId(), meal.getId());
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(uriComponents.toUri());
