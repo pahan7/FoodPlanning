@@ -3,6 +3,7 @@ package lv.ctco.jschool.business;
 import lv.ctco.jschool.db.OrderRepository;
 import lv.ctco.jschool.db.UserRepository;
 import lv.ctco.jschool.entities.User;
+import lv.ctco.jschool.model.UserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -91,6 +92,12 @@ public class UserController {
             userRepository.save(u);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+
+    @RequestMapping(path = "/validateUser", method = RequestMethod.POST)
+    public ResponseEntity<?> checkUser(@RequestBody UserCredentials userCredentials) {
+        System.out.println("userCredentials = " + userCredentials);
+        return new ResponseEntity<Object>(Boolean.TRUE, HttpStatus.OK);
     }
 
 }

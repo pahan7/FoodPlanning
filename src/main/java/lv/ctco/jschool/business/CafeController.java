@@ -1,6 +1,5 @@
 package lv.ctco.jschool.business;
 
-import lv.ctco.jschool.Consts;
 import lv.ctco.jschool.db.CafeRepository;
 import lv.ctco.jschool.entities.Cafe;
 import org.springframework.beans.factory.annotation.Autowired;
