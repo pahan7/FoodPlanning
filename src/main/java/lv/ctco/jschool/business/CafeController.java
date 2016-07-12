@@ -21,14 +21,14 @@ public class CafeController {
     CafeRepository cafeRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> cafeGet() {
+    public ResponseEntity<?> getCafe() {
         List<Cafe> cafe = cafeRepository.findAll();
         return new ResponseEntity<>(cafe, HttpStatus.OK);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> cafePost(@RequestBody Cafe cafe) {
+    public ResponseEntity<?> postCafe(@RequestBody Cafe cafe) {
         cafeRepository.save(cafe);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

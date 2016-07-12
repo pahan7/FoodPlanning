@@ -1,11 +1,15 @@
 package lv.ctco.jschool;
 
+import io.restassured.RestAssured;
+import io.restassured.parsing.Parser;
 import lv.ctco.jschool.entities.Cafe;
 import lv.ctco.jschool.entities.Meal;
 import lv.ctco.jschool.entities.Order;
 import lv.ctco.jschool.entities.User;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -15,7 +19,15 @@ import static io.restassured.RestAssured.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = FoodplanningApplication.class)
 @WebAppConfiguration
+@IntegrationTest("server.port:8090")
 public class FoodplanningApplicationTests {
+
+
+    @Before
+    public void before() {
+        RestAssured.port = 8090;
+        RestAssured.defaultParser = Parser.JSON;
+    }
 
     @Test
     public void addUserTest() {
