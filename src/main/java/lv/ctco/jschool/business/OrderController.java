@@ -29,9 +29,13 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getOrders(@PathVariable("id") int id) {
-        User u1 = userRepository.findOne(id);
-        List<Order> orders = orderRepository.findByUser(u1);
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+        if (!userRepository.exists(id))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else {
+            User u1 = userRepository.findOne(id);
+            List<Order> orders = orderRepository.findByUser(u1);
+            return new ResponseEntity<>(orders, HttpStatus.OK);
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)

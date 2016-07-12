@@ -39,6 +39,9 @@ public class OrderControllerTest {
     public void getOrdersTest() {
         User user = new User();
         user.setFirstName("John");
+        user.setLastName("The first");
+        user.setEmail("john@john.com");
+        user.setPassword("1234");
         Headers header = given().contentType("application/json").body(user).when().post(USER_PATH).getHeaders();
 
         get(header.getValue("Location") + ORDER_PATH).then().statusCode(OK.value());
@@ -53,6 +56,9 @@ public class OrderControllerTest {
     public void postOrderTest() throws Exception {
         User user = new User();
         user.setFirstName("John");
+        user.setLastName("The first");
+        user.setEmail("john@john.com");
+        user.setPassword("1234");
         Headers header = given().contentType("application/json").body(user).when().post(USER_PATH).getHeaders();
 
         Order order = new Order();

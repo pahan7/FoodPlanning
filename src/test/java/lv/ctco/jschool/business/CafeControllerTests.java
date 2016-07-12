@@ -8,10 +8,9 @@ import org.junit.Test;
 import static io.restassured.RestAssured.delete;
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static lv.ctco.jschool.Consts.BAD_ID;
-import static lv.ctco.jschool.Consts.JSON;
-import static lv.ctco.jschool.Consts.USER_PATH;
 import static org.hamcrest.Matchers.equalTo;
+
+import static lv.ctco.jschool.Consts.*;
 
 public class CafeControllerTests {
 
@@ -24,12 +23,12 @@ public class CafeControllerTests {
         given().
                 body(cafe).
                 when().
-                contentType(JSON).post(USER_PATH).then().statusCode(201);
+                contentType(JSON).post(CAFE_PATH).then().statusCode(201);
     }
 
     @Test
     public void getAllCafesTestOk() {
-        get(USER_PATH).then().statusCode(200);
+        get(CAFE_PATH).then().statusCode(200);
     }
 
     @Test
@@ -38,13 +37,13 @@ public class CafeControllerTests {
         cafe.setCafeName("cafe");
         cafe.setPhoneNr("1234");
 
-        Headers header = given().contentType(JSON).body(cafe).when().post(USER_PATH).getHeaders();
+        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
         get(header.getValue("Location")).then().body("cafeName", equalTo("cafe"));
     }
 
     @Test
     public void getCafeByIdTestFail() {
-        get(USER_PATH + BAD_ID).then().statusCode(404);
+        get(CAFE_PATH + BAD_ID).then().statusCode(404);
     }
 
     @Test
@@ -53,14 +52,14 @@ public class CafeControllerTests {
         cafe.setCafeName("cafe");
         cafe.setPhoneNr("1234");
 
-        Headers header = given().contentType(JSON).body(cafe).when().post(USER_PATH).getHeaders();
+        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
         delete(header.getValue("Location")).then().statusCode(200);
 
     }
 
     @Test
     public void deleteCafeByIdTestFail() {
-        delete(USER_PATH + BAD_ID).then().statusCode(404);
+        delete(CAFE_PATH + BAD_ID).then().statusCode(404);
 
     }
 
@@ -70,7 +69,7 @@ public class CafeControllerTests {
         cafe.setCafeName("cafe");
         cafe.setPhoneNr("1234");
 
-        Headers header = given().contentType(JSON).body(cafe).when().post(USER_PATH).getHeaders();
+        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
         cafe.setCafeName("new cafe");
         cafe.setPhoneNr("3421");
 
@@ -89,7 +88,7 @@ public class CafeControllerTests {
         given().
                 contentType(JSON).
                 body(cafe).when().
-                put(USER_PATH + BAD_ID).
+                put(CAFE_PATH + BAD_ID).
                 then().
                 statusCode(404);
     }

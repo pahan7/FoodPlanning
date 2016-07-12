@@ -36,6 +36,9 @@ public class MealControllerTest {
     public void postMealTest() throws Exception {
         User user = new User();
         user.setFirstName("John");
+        user.setLastName("The first");
+        user.setEmail("john@john.com");
+        user.setPassword("1234");
         Headers header = given().contentType(JSON).body(user).when().post(USER_PATH).getHeaders();
 
         Order order = new Order();
