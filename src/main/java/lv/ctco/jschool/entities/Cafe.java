@@ -10,9 +10,14 @@ public class Cafe {
     @Id
     @GeneratedValue
     @Column
+    private int id;
+
+    @Column
     private String cafeName;
+
     @Column
     private String phoneNr;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Meal> mealList = new ArrayList<>();
 
@@ -38,5 +43,13 @@ public class Cafe {
 
     public void setMealList(List<Meal> mealList) {
         this.mealList = mealList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -52,6 +52,8 @@ public class FoodplanningApplicationTests {
 
     @Test
     public void addMealTest() {
+
+
         Meal meal = new Meal();
         meal.setPrice(2.00);
         meal.setMealName("Chicken");
