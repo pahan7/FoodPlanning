@@ -93,4 +93,13 @@ public class UserController {
         }
     }
 
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public ResponseEntity<?> checkPassword(@RequestBody String userName, String userPassword) {
+        User user = userRepository.findUserByEmail(userName);
+        if (user.getPassword().equals(userPassword))
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
 }
