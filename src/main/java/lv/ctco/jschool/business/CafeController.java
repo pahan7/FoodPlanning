@@ -16,7 +16,6 @@ import static lv.ctco.jschool.Consts.*;
 @RestController
 @RequestMapping(CAFE_PATH)
 public class CafeController {
-
     @Autowired
     CafeRepository cafeRepository;
 
@@ -48,7 +47,6 @@ public class CafeController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCafeById(@PathVariable("id") int id) {
-
         if (!cafeRepository.exists(id))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
@@ -59,7 +57,6 @@ public class CafeController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> putCafeById(@PathVariable("id") int id, @RequestBody Cafe cafe) {
-
         if (!cafeRepository.exists(id))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

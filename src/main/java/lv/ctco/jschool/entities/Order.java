@@ -13,10 +13,10 @@ public class Order {
     @Column(name = "ID")
     private int orderId;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Meal> mealList;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Meal userMeal;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -36,11 +36,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public List<Meal> getMealList() {
-        return mealList;}
+    public Meal getUserMeal() {
+        return userMeal;}
 
-    public void setMealList(List<Meal> mealList) {
-        this.mealList = mealList;
+    public void setUserMeal(Meal meal) {
+        this.userMeal = meal;
     }
 
 

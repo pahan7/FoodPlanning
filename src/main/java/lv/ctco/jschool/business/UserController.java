@@ -19,13 +19,10 @@ import static lv.ctco.jschool.Consts.USER_PATH;
 @RestController
 @RequestMapping(USER_PATH)
 public class UserController {
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     OrderRepository orderRepository;
-
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAllUsers() {
@@ -45,7 +42,6 @@ public class UserController {
 
     @RequestMapping(path = "/{email}", method = RequestMethod.GET)
     public ResponseEntity<?> GetUserByEmail(@PathVariable("email") String email) {
-
         User user = userRepository.findUserByEmail(email);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -54,20 +50,15 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder b) {
         userRepository.save(user);
-
         UriComponents uriComponents =
                 b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());
-
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(uriComponents.toUri());
-
-
         return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUserById(@PathVariable("id") int id) {
-
         if (!userRepository.exists(id))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
@@ -78,7 +69,6 @@ public class UserController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> putUserById(@PathVariable("id") int id, @RequestBody User user) {
-
         if (!userRepository.exists(id))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {

@@ -1,4 +1,3 @@
-
 package lv.ctco.jschool.entities;
 import javax.persistence.*;
 

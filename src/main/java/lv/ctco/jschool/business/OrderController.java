@@ -20,10 +20,8 @@ import static lv.ctco.jschool.Consts.USER_PATH;
 @RestController
 @RequestMapping(USER_PATH + "/{id}" + ORDER_PATH)
 public class OrderController {
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     OrderRepository orderRepository;
 
@@ -38,21 +36,15 @@ public class OrderController {
         }
     }
 
-
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addOrder(@PathVariable("id") int id, @RequestBody Order order, UriComponentsBuilder b) {
         User u1 = userRepository.findOne(id);
         order.setUser(u1);
         orderRepository.save(order);
-
-
         UriComponents uriComponents =
                 b.path(USER_PATH + "/{id}" + ORDER_PATH + "/{oid}").buildAndExpand(u1.getId(), order.getOrderId());
-
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(uriComponents.toUri());
-
         return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
     }
 }

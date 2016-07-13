@@ -25,7 +25,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 @WebAppConfiguration
 @IntegrationTest("server.port:8090")
 public class MealControllerTest {
-
     @Before
     public void before() {
         RestAssured.port = 8090;
@@ -46,6 +45,5 @@ public class MealControllerTest {
 
         Meal meal = new Meal();
         given().contentType(JSON).body(order).when().post(header1.getValue("Location") + MEAL_PATH).then().statusCode(CREATED.value());
-
     }
 }

@@ -36,7 +36,7 @@ public class MealController {
 
         Order order = orderRepository.findByUserAndId(u1, orderId);
 
-        List<Meal> meals = order.getMealList();
+        List<Meal> meals = order.getUserMeal();
         meals.add(meal);
 
         orderRepository.save(order);
