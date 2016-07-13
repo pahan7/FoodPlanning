@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface MealRepository extends JpaRepository<Cafe, Integer> {
+public interface MealRepository extends JpaRepository<Meal, Integer> {
     @Query("select m from Meal m where m.cafe = ?1")
     List<Meal> findByCafe(Cafe cafe);
 }

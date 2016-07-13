@@ -32,7 +32,7 @@ public class MealControllerTest {
     }
 
     @Test
-    public void postMealTest() throws Exception {
+    public void postMealTestCreated() throws Exception {
         User user = new User();
         user.setFirstName("John");
         user.setLastName("The first");
@@ -40,10 +40,41 @@ public class MealControllerTest {
         user.setPassword("1234");
         Headers header = given().contentType(JSON).body(user).when().post(USER_PATH).getHeaders();
 
+        Meal meal = new Meal();
+        meal.setMealName("name");
+
         Order order = new Order();
-        Headers header1 = given().contentType(JSON).body(order).when().post(header.getValue("Location") + ORDER_PATH).getHeaders();
+        order.setUser(user);
+        order.setMeal(meal);
+
+        given().contentType(JSON)
+                .body(order)
+                .when()
+                .post(header.getValue("Location") + MEAL_PATH + "/" + meal.getId())
+                .then()
+                .statusCode(CREATED.value());
+    }
+    @Test
+    public void postMealTestNotFound() throws Exception {
+        User user = new User();
+        user.setFirstName("John");
+        user.setLastName("The first");
+        user.setEmail("john@john.com");
+        user.setPassword("1234");
+        Headers header = given().contentType(JSON).body(user).when().post(USER_PATH).getHeaders();
 
         Meal meal = new Meal();
-        given().contentType(JSON).body(order).when().post(header1.getValue("Location") + MEAL_PATH).then().statusCode(CREATED.value());
+        meal.setMealName("name");
+
+        Order order = new Order();
+        order.setUser(user);
+        order.setMeal(meal);
+
+        given().contentType(JSON)
+                .body(order)
+                .when()
+                .post(header.getValue("Location") + MEAL_PATH + "/-1")
+                .then()
+                .statusCode(CREATED.value());
     }
 }

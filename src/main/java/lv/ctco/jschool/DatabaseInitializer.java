@@ -34,24 +34,12 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         user.setPassword("1");
         userRepository.save(user);
 
-        User user2 = new User();
-        user.setFirstName("Zapp");
-        user.setLastName("Brannigan");
-        user.setEmail("zappie@gmail.com");
-        user.setPassword("zapp");
-        userRepository.save(user2);
-
         Meal meal = new Meal();
         meal.setMealName("Pigs blood");
         meal.setPrice(23);
 
-        Meal meal2 = new Meal();
-        meal2.setMealName("Russian set");
-        meal2.setPrice(33);
-
         List<Meal> mealList = new ArrayList<>();
         mealList.add(meal);
-        mealList.add(meal2);
 
         Cafe cafeBabe = new Cafe();
         cafeBabe.setCafeName("Cafe Babe");
