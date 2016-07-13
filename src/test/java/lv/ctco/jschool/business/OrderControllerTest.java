@@ -28,7 +28,6 @@ import static org.springframework.http.HttpStatus.*;
 @WebAppConfiguration
 @IntegrationTest("server.port:8090")
 public class OrderControllerTest {
-
     @Before
     public void before() {
         RestAssured.port = 8090;
@@ -36,34 +35,8 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void getOrdersTest() {
-        User user = new User();
-        user.setFirstName("John");
-        user.setLastName("The first");
-        user.setEmail("john@john.com");
-        user.setPassword("1234");
-        Headers header = given().contentType("application/json").body(user).when().post(USER_PATH).getHeaders();
-
-        get(header.getValue("Location") + ORDER_PATH).then().statusCode(OK.value());
-    }
-
-    @Test
-    public void getOrdersFailTest() {
-        get(USER_PATH + BAD_ID + ORDER_PATH).then().statusCode(NOT_FOUND.value());
-    }
-
-    @Test
-    public void postOrderTest() throws Exception {
-        User user = new User();
-        user.setFirstName("John");
-        user.setLastName("The first");
-        user.setEmail("john@john.com");
-        user.setPassword("1234");
-        Headers header = given().contentType("application/json").body(user).when().post(USER_PATH).getHeaders();
-
-        Order order = new Order();
-
-        given().contentType("application/json").body(order).when().post(header.getValue("Location") + ORDER_PATH).then().statusCode(CREATED.value());
-
+    public void getOrderTest() {
+        given().when().get(USER_PATH + "/1" + ORDER_PATH).then().statusCode(200);
+        given().when().get(USER_PATH + "/12" + ORDER_PATH).then().statusCode(400);
     }
 }

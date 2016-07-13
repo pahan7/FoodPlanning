@@ -26,13 +26,12 @@ public class OrderController {
     OrderRepository orderRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getOrders(@PathVariable("id") int id) {
-        if (!userRepository.exists(id))
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else {
-            User u1 = userRepository.findOne(id);
-            List<Order> orders = orderRepository.findByUser(u1);
-            return new ResponseEntity<>(orders, HttpStatus.OK);
+    public ResponseEntity<?> getOrder(@PathVariable("id") int id) {
+        if (orderRepository.exists(id)) {
+            Order order = orderRepository.findOne(id);
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

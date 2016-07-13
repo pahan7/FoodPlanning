@@ -27,7 +27,6 @@ import static lv.ctco.jschool.Consts.*;
 @IntegrationTest("server.port:8090")
 
 public class CafeControllerTests {
-
     @Before
     public void before() {
         RestAssured.port = 8090;
@@ -39,7 +38,6 @@ public class CafeControllerTests {
         Cafe cafe = new Cafe();
         cafe.setCafeName("cafe");
         cafe.setPhoneNr("1234");
-
         given().
                 body(cafe).
                 when().
@@ -51,20 +49,6 @@ public class CafeControllerTests {
         get(CAFE_PATH).then().statusCode(200);
     }
 
-    @Test
-    public void getCafeByIdTestOk() {
-        Cafe cafe = new Cafe();
-        cafe.setCafeName("cafe");
-        cafe.setPhoneNr("1234");
-
-        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
-        get(header.getValue("Location")).then().body("cafeName", equalTo("cafe"));
-    }
-
-    @Test
-    public void getCafeByIdTestFail() {
-        get(CAFE_PATH + BAD_ID).then().statusCode(404);
-    }
 
     @Test
     public void deleteCafeByIdTestOk() {
@@ -80,7 +64,6 @@ public class CafeControllerTests {
     @Test
     public void deleteCafeByIdTestFail() {
         delete(CAFE_PATH + BAD_ID).then().statusCode(404);
-
     }
 
     @Test
@@ -92,7 +75,6 @@ public class CafeControllerTests {
         Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
         cafe.setCafeName("new cafe");
         cafe.setPhoneNr("3421");
-
         given().
                 contentType(JSON).
                 body(cafe).when().
@@ -104,7 +86,6 @@ public class CafeControllerTests {
     @Test
     public void putCafeByIdTestFail() {
         Cafe cafe = new Cafe();
-
         given().
                 contentType(JSON).
                 body(cafe).when().
@@ -112,5 +93,4 @@ public class CafeControllerTests {
                 then().
                 statusCode(404);
     }
-
 }

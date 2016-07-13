@@ -2,9 +2,11 @@ package lv.ctco.jschool;
 
 import lv.ctco.jschool.db.CafeRepository;
 import lv.ctco.jschool.db.MealRepository;
+import lv.ctco.jschool.db.OrderRepository;
 import lv.ctco.jschool.db.UserRepository;
 import lv.ctco.jschool.entities.Cafe;
 import lv.ctco.jschool.entities.Meal;
+import lv.ctco.jschool.entities.Order;
 import lv.ctco.jschool.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -23,6 +25,8 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
     MealRepository mealRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Transactional
     @Override
@@ -46,5 +50,11 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         cafeBabe.setMealList(mealList);
         cafeBabe.setPhoneNr("23344556");
         cafeRepository.save(cafeBabe);
+
+        Order order = new Order();
+        order.setMeal(meal);
+        order.setUser(user);
+        orderRepository.save(order);
+
     }
 }

@@ -25,16 +25,6 @@ public class CafeController {
         return new ResponseEntity<>(cafe, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> GetCafeById(@PathVariable("id") int id) {
-        if (!cafeRepository.exists(id))
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else {
-            Cafe cafe = cafeRepository.findOne(id);
-            return new ResponseEntity<>(cafe, HttpStatus.OK);
-        }
-    }
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> postCafe(@RequestBody Cafe cafe, UriComponentsBuilder b) {
         cafeRepository.save(cafe);
@@ -47,7 +37,6 @@ public class CafeController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCafeById(@PathVariable("id") int id) {
-
         if (!cafeRepository.exists(id))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
@@ -58,7 +47,6 @@ public class CafeController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> putCafeById(@PathVariable("id") int id, @RequestBody Cafe cafe) {
-
         if (!cafeRepository.exists(id))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
@@ -70,5 +58,4 @@ public class CafeController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
-
 }
