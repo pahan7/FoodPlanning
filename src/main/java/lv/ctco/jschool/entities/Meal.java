@@ -14,15 +14,9 @@ public class Meal {
     @Column
     private double price;
 
-    //@ManyToOne
-    //private Cafe cafe;
-
     @ManyToOne
     @JoinColumn(name = "cafe_id")
     private Cafe cafe;
-
-    @ManyToOne
-    private Order order;
 
     public int getId() {
         return id;
@@ -46,14 +40,6 @@ public class Meal {
 
     public void setCafe(Cafe cafe) {
         this.cafe = cafe;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public double getPrice() {

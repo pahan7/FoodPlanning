@@ -45,7 +45,6 @@ public class OrderController {
                 b.path(USER_PATH + "/{id}" + ORDER_PATH + "/{oid}").buildAndExpand(u1.getId(), order.getOrderId());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(uriComponents.toUri());
-
         return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
     }
 }

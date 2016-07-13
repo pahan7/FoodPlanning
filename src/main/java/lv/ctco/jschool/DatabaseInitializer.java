@@ -44,6 +44,10 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         Meal meal = new Meal();
         meal.setMealName("Pigs blood");
         meal.setPrice(23);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         Meal meal2 = new Meal();
         meal2.setMealName("Russian set");
         meal2.setPrice(33);
@@ -57,5 +61,11 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         cafeBabe.setMealList(mealList);
         cafeBabe.setPhoneNr("23344556");
         cafeRepository.save(cafeBabe);
+<<<<<<< HEAD
     }
 }
+=======
+
+    }
+}
+>>>>>>> origin/master
