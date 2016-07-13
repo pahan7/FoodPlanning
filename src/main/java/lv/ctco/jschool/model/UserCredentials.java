@@ -1,7 +1,6 @@
 package lv.ctco.jschool.model;
 
 public class UserCredentials {
-
     private String email;
     private String password;
 

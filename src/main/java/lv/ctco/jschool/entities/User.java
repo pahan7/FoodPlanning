@@ -10,16 +10,16 @@ public class User {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column
     private String lastName;
 
-    @Column(name = "password", nullable = false)
+    @Column
     private String password;
 
-    @Column(name = "email", nullable = false)
+    @Column
     private String email;
 
     @Column
