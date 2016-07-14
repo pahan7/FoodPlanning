@@ -17,6 +17,7 @@ import java.util.List;
 import static lv.ctco.jschool.Consts.USER_PATH;
 
 @RestController
+@CrossOrigin
 @RequestMapping(USER_PATH)
 public class UserController {
     @Autowired
@@ -44,33 +45,39 @@ public class UserController {
     public ResponseEntity<?> GetUserByEmail(@PathVariable("email") String email) {
 
         User user = userRepository.findUserByEmail(email);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        if (userRepository.exists(user.getId())){
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder b) {
-        userRepository.save(user);
+        if (!user.getEmail().isEmpty()
+                && !user.getFirstName().isEmpty()
+                && !user.getLastName().isEmpty()
+                && !user.getPassword().isEmpty()) {
+            userRepository.save(user);
 
-        UriComponents uriComponents =
-                b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());
+            UriComponents uriComponents =
+                    b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());
 
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(uriComponents.toUri());
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setLocation(uriComponents.toUri());
 
-
-        return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
+            return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteUserById(@PathVariable("id") int id) {
-
-        if (!userRepository.exists(id))
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else {
-            userRepository.delete(id);
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public ResponseEntity<?> checkPassword(@RequestBody String userName, String userPassword) {
+        User user = userRepository.findUserByEmail(userName);
+        if (user.getPassword().equals(userPassword))
             return new ResponseEntity<>(HttpStatus.OK);
-        }
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
@@ -90,13 +97,14 @@ public class UserController {
         }
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> checkPassword(@RequestBody String userName, String userPassword) {
-        User user = userRepository.findUserByEmail(userName);
-        if (user.getPassword().equals(userPassword))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteUserById(@PathVariable("id") int id) {
 
+        if (!userRepository.exists(id))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else {
+            userRepository.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
 }

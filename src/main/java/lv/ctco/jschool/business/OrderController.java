@@ -18,6 +18,7 @@ import static lv.ctco.jschool.Consts.ORDER_PATH;
 import static lv.ctco.jschool.Consts.USER_PATH;
 
 @RestController
+@CrossOrigin
 @RequestMapping(USER_PATH + "/{id}" + ORDER_PATH)
 public class OrderController {
     @Autowired

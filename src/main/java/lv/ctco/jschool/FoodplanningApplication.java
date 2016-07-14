@@ -6,7 +6,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
-@CrossOrigin
 public class FoodplanningApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FoodplanningApplication.class, args);

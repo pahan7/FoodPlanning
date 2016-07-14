@@ -20,6 +20,7 @@ import static lv.ctco.jschool.Consts.*;
 import static lv.ctco.jschool.Consts.USER_PATH;
 
 @RestController
+@CrossOrigin
 @RequestMapping(USER_PATH + "/{id}" + MEAL_PATH)
 public class MealController {
     @Autowired

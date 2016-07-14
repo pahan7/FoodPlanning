@@ -18,6 +18,7 @@ import java.util.List;
 import static lv.ctco.jschool.Consts.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping(CAFE_PATH)
 public class CafeController {
     @Autowired
