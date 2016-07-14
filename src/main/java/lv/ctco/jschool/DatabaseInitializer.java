@@ -1,13 +1,10 @@
 package lv.ctco.jschool;
 
+import lv.ctco.jschool.entities.*;
 import lv.ctco.jschool.repository.CafeRepository;
 import lv.ctco.jschool.repository.MealRepository;
 import lv.ctco.jschool.repository.OrderRepository;
 import lv.ctco.jschool.repository.UserRepository;
-import lv.ctco.jschool.entities.Cafe;
-import lv.ctco.jschool.entities.Meal;
-import lv.ctco.jschool.entities.Order;
-import lv.ctco.jschool.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -36,6 +34,9 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         user.setLastName("Zoidberg");
         user.setEmail("zoid@clam.com");
         user.setPassword("1");
+        UserRoles userRoles = new UserRoles();
+        userRoles.setRole("USER");
+        user.setUserRoles(Arrays.asList(userRoles));
         userRepository.save(user);
 
         Meal meal = new Meal();

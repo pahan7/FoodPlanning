@@ -1,4 +1,4 @@
-package lv.ctco.jschool;
+package lv.ctco.jschool.configs;
 
 import org.h2.server.web.WebServlet;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;

@@ -1,5 +1,6 @@
 package lv.ctco.jschool.controllers;
 
+import lv.ctco.jschool.entities.UserRoles;
 import lv.ctco.jschool.repository.OrderRepository;
 import lv.ctco.jschool.repository.UserRepository;
 import lv.ctco.jschool.entities.User;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static lv.ctco.jschool.Consts.USER_PATH;
@@ -54,12 +56,11 @@ public class UserController {
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder b) {
-        if (!user.getEmail().isEmpty()
-                && !user.getFirstName().isEmpty()
-                && !user.getLastName().isEmpty()
-                && !user.getPassword().isEmpty()) {
+        if (userRepository.findUserByEmail(user.getEmail()) != null){
+            UserRoles userRoles = new UserRoles();
+            userRoles.setRole("USER");
+            user.setUserRoles(Arrays.asList(userRoles));
             userRepository.save(user);
-
             UriComponents uriComponents =
                     b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());
 
@@ -69,15 +70,6 @@ public class UserController {
             return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> checkPassword(@RequestBody String userName, String userPassword) {
-        User user = userRepository.findUserByEmail(userName);
-        if (user.getPassword().equals(userPassword))
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)

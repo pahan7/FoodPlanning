@@ -1,4 +1,8 @@
+#IDEA
 .idea
 *.iml
-target
-out
+*.iws
+
+#MAVEN
+/target
+/out
