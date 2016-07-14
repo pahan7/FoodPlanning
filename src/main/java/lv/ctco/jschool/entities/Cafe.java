@@ -53,12 +53,38 @@ public class Cafe {
         this.id = id;
     }
 
-    public void addToMeals(Meal meal){
+    public boolean addToMeals(Meal meal){
         Optional<Meal>mealExists = mealList.stream()
                 .filter(m-> m.getMealName().equals(meal.getMealName()))
                 .findAny();
         if (!mealExists.isPresent()){
             mealList.add(meal);
+            return true;
         }
+        return false;
+    }
+    public boolean deleteMeal(String mealName){
+        Optional<Meal>mealExists = mealList.stream()
+                .filter(m -> m.getMealName().equals(mealName))
+                .findAny();
+        if (mealExists.isPresent()){
+            Meal mealToDelete = mealExists.get();
+            mealList.remove(mealToDelete);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateMeal(Meal meal,String mealName){
+        Optional<Meal>mealExists = mealList.stream()
+                .filter(m -> m.getMealName().equals(mealName))
+                .findAny();
+        if (mealExists.isPresent()){
+            Meal mealToUpdate = mealExists.get();
+            mealToUpdate.setMealName(meal.getMealName());
+            mealToUpdate.setPrice(meal.getPrice());
+            return true;
+        }
+        return false;
     }
 }
