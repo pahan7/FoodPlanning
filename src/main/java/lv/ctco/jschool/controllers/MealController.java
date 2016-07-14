@@ -28,7 +28,7 @@ public class MealController {
     CafeRepository cafeRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> addOneMeal(@PathVariable("cId") int cafeId) {
+    public ResponseEntity<?> getOneMeal(@PathVariable("cId") int cafeId) {
         if (cafeRepository.exists(cafeId)) {
             Cafe cafe = cafeRepository.findOne(cafeId);
             List<Meal> meals = cafe.getMealList();

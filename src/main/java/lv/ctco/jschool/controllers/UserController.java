@@ -56,7 +56,7 @@ public class UserController {
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder b) {
-        if (userRepository.findUserByEmail(user.getEmail()) != null){
+        if (userRepository.findUserByEmail(user.getEmail()) == null){
             UserRoles userRoles = new UserRoles();
             userRoles.setRole("ROLE_USER");
             user.setUserRoles(Arrays.asList(userRoles));
@@ -83,7 +83,6 @@ public class UserController {
             u.setEmail(user.getEmail());
             u.setLastName(user.getLastName());
             u.setFirstName(user.getFirstName());
-
             userRepository.save(u);
             return new ResponseEntity<>(HttpStatus.OK);
         }

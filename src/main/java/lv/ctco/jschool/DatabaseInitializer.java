@@ -32,7 +32,6 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         user.setLastName("Zoidberg");
         user.setEmail("zoid@clam.com");
         user.setPassword("1");
-        user.setOrder(order);
         UserRoles userRoles = new UserRoles();
         userRoles.setRole("USER");
         user.setUserRoles(Arrays.asList(userRoles));

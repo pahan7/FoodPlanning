@@ -47,4 +47,8 @@ public class Order {
     public void setMealList(Meal meal) {
         mealList.add(meal);
     }
+
+    public void setMealList(List<Meal> mealList) {
+        this.mealList = mealList;
+    }
 }
