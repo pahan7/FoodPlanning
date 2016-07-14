@@ -1,9 +1,9 @@
 package lv.ctco.jschool;
 
-import lv.ctco.jschool.db.CafeRepository;
-import lv.ctco.jschool.db.MealRepository;
-import lv.ctco.jschool.db.OrderRepository;
-import lv.ctco.jschool.db.UserRepository;
+import lv.ctco.jschool.repository.CafeRepository;
+import lv.ctco.jschool.repository.MealRepository;
+import lv.ctco.jschool.repository.OrderRepository;
+import lv.ctco.jschool.repository.UserRepository;
 import lv.ctco.jschool.entities.Cafe;
 import lv.ctco.jschool.entities.Meal;
 import lv.ctco.jschool.entities.Order;

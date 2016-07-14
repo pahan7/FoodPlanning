@@ -1,8 +1,8 @@
-package lv.ctco.jschool.business;
+package lv.ctco.jschool.controllers;
 
-import lv.ctco.jschool.db.MealRepository;
-import lv.ctco.jschool.db.OrderRepository;
-import lv.ctco.jschool.db.UserRepository;
+import lv.ctco.jschool.repository.MealRepository;
+import lv.ctco.jschool.repository.OrderRepository;
+import lv.ctco.jschool.repository.UserRepository;
 import lv.ctco.jschool.entities.Meal;
 import lv.ctco.jschool.entities.Order;
 import lv.ctco.jschool.entities.User;

@@ -1,10 +1,8 @@
-package lv.ctco.jschool.business;
+package lv.ctco.jschool.controllers;
 
-import lv.ctco.jschool.db.CafeRepository;
+import lv.ctco.jschool.repository.CafeRepository;
 import lv.ctco.jschool.entities.Cafe;
 import lv.ctco.jschool.entities.Meal;
-import lv.ctco.jschool.entities.Order;
-import lv.ctco.jschool.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

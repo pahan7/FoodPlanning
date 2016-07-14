@@ -1,9 +1,7 @@
-package lv.ctco.jschool.db;
+package lv.ctco.jschool.repository;
 
 import lv.ctco.jschool.entities.Cafe;
 import lv.ctco.jschool.entities.Meal;
-import lv.ctco.jschool.entities.Order;
-import lv.ctco.jschool.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

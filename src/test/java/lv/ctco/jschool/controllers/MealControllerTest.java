@@ -1,4 +1,4 @@
-package lv.ctco.jschool.business;
+package lv.ctco.jschool.controllers;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Headers;
@@ -17,7 +17,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import static io.restassured.RestAssured.given;
 import static lv.ctco.jschool.Consts.*;
-import static org.junit.Assert.*;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RunWith(SpringJUnit4ClassRunner.class)

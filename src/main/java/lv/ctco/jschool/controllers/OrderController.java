@@ -1,18 +1,12 @@
-package lv.ctco.jschool.business;
+package lv.ctco.jschool.controllers;
 
-import lv.ctco.jschool.db.OrderRepository;
-import lv.ctco.jschool.db.UserRepository;
+import lv.ctco.jschool.repository.OrderRepository;
+import lv.ctco.jschool.repository.UserRepository;
 import lv.ctco.jschool.entities.Order;
-import lv.ctco.jschool.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 import static lv.ctco.jschool.Consts.ORDER_PATH;
 import static lv.ctco.jschool.Consts.USER_PATH;

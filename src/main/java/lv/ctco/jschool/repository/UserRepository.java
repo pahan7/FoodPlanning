@@ -1,4 +1,4 @@
-package lv.ctco.jschool.db;
+package lv.ctco.jschool.repository;
 
 import lv.ctco.jschool.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
