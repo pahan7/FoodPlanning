@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 import static lv.ctco.jschool.Consts.*;
