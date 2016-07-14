@@ -1,52 +1,85 @@
 package lv.ctco.jschool.controllers;
 
-import lv.ctco.jschool.repository.MealRepository;
+import lv.ctco.jschool.entities.Cafe;
+import lv.ctco.jschool.repository.CafeRepository;
 import lv.ctco.jschool.repository.OrderRepository;
 import lv.ctco.jschool.repository.UserRepository;
 import lv.ctco.jschool.entities.Meal;
-import lv.ctco.jschool.entities.Order;
-import lv.ctco.jschool.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static lv.ctco.jschool.Consts.*;
-import static lv.ctco.jschool.Consts.USER_PATH;
+
 
 @RestController
 @CrossOrigin
-@RequestMapping(USER_PATH + "/{id}" + MEAL_PATH)
+@RequestMapping(CAFE_PATH + "/{cId}" + MEAL_PATH)
 public class MealController {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    OrderRepository orderRepository;
-    @Autowired
-    MealRepository mealRepository;
 
-    @Transactional
-    @RequestMapping(path = "/{mId}",method = RequestMethod.POST)
-    public ResponseEntity<?> addOneMeal(@PathVariable("id") int userId, @PathVariable("mId") int mId, UriComponentsBuilder b) {
-        User user = userRepository.findOne(userId);
-        if (userRepository.exists(userId)) {
-            Order order = new Order();
-            order.setUser(user);
-            Meal meal = mealRepository.findOne(mId);
-            order.setMeal(meal);
-            orderRepository.save(order);
-            UriComponents uriComponents =
-                    b.path(USER_PATH + "/{id}" + MEAL_PATH + "/" + mId).buildAndExpand(order.getOrderId());
-            HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.setLocation(uriComponents.toUri());
-            return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
+    @Autowired
+    CafeRepository cafeRepository;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> addOneMeal(@PathVariable("cId") int cafeId) {
+        if (cafeRepository.exists(cafeId)) {
+            Cafe cafe = cafeRepository.findOne(cafeId);
+            List<Meal> meals = cafe.getMealList();
+            return new ResponseEntity<>(meals, HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+
+    @Transactional
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> addOneMeal(@PathVariable("cId") int cafeId,
+                                        @RequestBody Meal inputMeal, UriComponentsBuilder b) {
+        if (cafeRepository.exists(cafeId)) {
+            Cafe cafe = cafeRepository.findOne(cafeId);
+            Meal meal = inputMeal;
+            meal.setCafeId(cafe.getId());
+            if (cafe.addToMeals(meal)) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
+    @Transactional
+    @RequestMapping(path = "/{mId}", method = RequestMethod.PUT)
+    public ResponseEntity<?> modifyMeal(@PathVariable("cId") int cafeId, @PathVariable("mId") int mealId, @RequestBody Meal inputMeal) {
+        if (cafeRepository.exists(cafeId)) {
+            Cafe cafe = cafeRepository.findOne(cafeId);
+            Meal meal = inputMeal;
+            meal.setId(mealId);
+            if (cafe.updateMeal(meal, mealId)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+
+    @Transactional
+    @RequestMapping(path = "/{mId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> modifyMeal(@PathVariable("cId") int cafeId, @PathVariable("mId") int mealId) {
+        if (cafeRepository.exists(cafeId)) {
+            Cafe cafe = cafeRepository.findOne(cafeId);
+            if (cafe.deleteMeal(mealId)) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }

@@ -8,14 +8,20 @@ public class Meal {
     @GeneratedValue
     @Column
     private int id;
-    @Column(nullable = false,unique = true)
+    @Column(name = "mealName", nullable = false, unique = true)
     private String mealName;
     @Column
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name = "cafe_id")
-    private Cafe cafe;
+    private int cafeId;
+
+    public int getCafeId() {
+        return cafeId;
+    }
+
+    public void setCafeId(int cafeId) {
+        this.cafeId = cafeId;
+    }
 
     public int getId() {
         return id;
@@ -31,14 +37,6 @@ public class Meal {
 
     public void setMealName(String mealName) {
         this.mealName = mealName;
-    }
-
-    public Cafe getCafe() {
-        return cafe;
-    }
-
-    public void setCafe(Cafe cafe) {
-        this.cafe = cafe;
     }
 
     public double getPrice() {

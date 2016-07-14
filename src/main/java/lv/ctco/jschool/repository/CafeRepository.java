@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CafeRepository extends JpaRepository<Cafe, Integer> {
 
-    User findByName(String email);
+    Cafe findByName(String email);
 }

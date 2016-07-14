@@ -2,7 +2,6 @@ package lv.ctco.jschool;
 
 import lv.ctco.jschool.entities.*;
 import lv.ctco.jschool.repository.CafeRepository;
-import lv.ctco.jschool.repository.MealRepository;
 import lv.ctco.jschool.repository.OrderRepository;
 import lv.ctco.jschool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import java.util.List;
 public class DatabaseInitializer implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     CafeRepository cafeRepository;
-    @Autowired
-    MealRepository mealRepository;
     @Autowired
     UserRepository userRepository;
     @Autowired
