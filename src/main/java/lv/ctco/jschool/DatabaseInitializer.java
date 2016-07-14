@@ -59,5 +59,15 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         order.setUser(user);
         orderRepository.save(order);
 
+
+        User admin = new User();
+        admin.setFirstName("admin");
+        admin.setLastName("admin");
+        admin.setEmail("admin");
+        admin.setPassword("admin");
+        UserRoles adminRole = new UserRoles();
+        adminRole.setRole("ROLE_ADMIN");
+        admin.setUserRoles(Arrays.asList(adminRole));
+        userRepository.save(admin);
     }
 }

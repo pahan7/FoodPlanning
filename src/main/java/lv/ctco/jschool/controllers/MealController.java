@@ -30,7 +30,7 @@ public class MealController {
     @Autowired
     MealRepository mealRepository;
 
-    @Transactional
+    /*@Transactional
     @RequestMapping(path = "/{mId}",method = RequestMethod.POST)
     public ResponseEntity<?> addOneMeal(@PathVariable("id") int userId, @PathVariable("mId") int mId, UriComponentsBuilder b) {
         User user = userRepository.findOne(userId);
@@ -47,6 +47,6 @@ public class MealController {
             return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+    }*/
 
 }

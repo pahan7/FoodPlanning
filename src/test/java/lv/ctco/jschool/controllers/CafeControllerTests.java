@@ -26,7 +26,7 @@ public class CafeControllerTests {
     public void before() {
         RestAssured.port = 8090;
         RestAssured.defaultParser = Parser.JSON;
-        RestAssured.authentication = preemptive().basic("zoid@clam.com", "1");
+        RestAssured.authentication = preemptive().basic("admin", "admin");
     }
 
     @Test
@@ -41,7 +41,7 @@ public class CafeControllerTests {
 
     @Test
     public void getAllCafesTestOk() {
-        given().auth().basic("zoid@clam.com","1").and().get(CAFE_PATH).then().statusCode(200);
+        get(CAFE_PATH).then().statusCode(200);
     }
 
 
@@ -52,14 +52,13 @@ public class CafeControllerTests {
         cafe.setPhoneNr("1234");
 
         Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
-        given().auth().basic("zoid@clam.com", "1").and()
-                .delete(header.getValue("Location")).then().statusCode(200);
+        given().delete(header.getValue("Location")).then().statusCode(200);
 
     }
 
     @Test
     public void deleteCafeByIdTestFail() {
-        delete(CAFE_PATH + BAD_ID).then().statusCode(401);
+        delete(CAFE_PATH + BAD_ID).then().statusCode(404);
     }
 
     @Test
@@ -71,8 +70,7 @@ public class CafeControllerTests {
         Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
         cafe.setCafeName("new cafe");
         cafe.setPhoneNr("3421");
-        given().auth().basic("zoid@clam.com","1").and()
-                .contentType(JSON).
+        given().contentType(JSON).
                 body(cafe).when().
                 put(header.getValue("Location")).
                 then().
