@@ -1,4 +1,6 @@
 package lv.ctco.jschool.entities;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserRoles> userRoles = new ArrayList<>();
 
+    @OneToOne
+    private Order order;
+
     public List<UserRoles> getUserRoles() {
         return userRoles;
     }
@@ -29,7 +34,13 @@ public class User {
         userRoles.forEach(u -> u.setUser(this));
     }
 
+    public Order getOrder() {
+        return order;
+    }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public String getLastName() {
         return lastName;

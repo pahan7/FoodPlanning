@@ -44,7 +44,7 @@ public class MealControllerTest {
 
         Order order = new Order();
         order.setUser(user);
-        order.setMeal(meal);
+        order.setMealList(meal);
 
         given().contentType(JSON)
                 .body(order)
@@ -67,7 +67,7 @@ public class MealControllerTest {
 
         Order order = new Order();
         order.setUser(user);
-        order.setMeal(meal);
+        order.setMealList(meal);
 
         given().contentType(JSON)
                 .body(order)
