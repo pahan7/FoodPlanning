@@ -36,7 +36,6 @@ public class MealController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addOneMeal(@PathVariable("cId") int cafeId,
@@ -52,7 +51,6 @@ public class MealController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
 
     @Transactional
     @RequestMapping(path = "/{mId}", method = RequestMethod.PUT)

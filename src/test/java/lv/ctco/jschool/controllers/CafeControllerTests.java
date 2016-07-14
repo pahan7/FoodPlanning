@@ -13,10 +13,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static io.restassured.RestAssured.delete;
-import static io.restassured.RestAssured.get;
-import static io.restassured.RestAssured.given;
-
+import static io.restassured.RestAssured.*;
 import static lv.ctco.jschool.Consts.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +26,7 @@ public class CafeControllerTests {
     public void before() {
         RestAssured.port = 8090;
         RestAssured.defaultParser = Parser.JSON;
+        RestAssured.authentication = preemptive().basic("admin", "admin");
     }
 
     @Test
@@ -36,15 +34,14 @@ public class CafeControllerTests {
         Cafe cafe = new Cafe();
         cafe.setCafeName("cafe");
         cafe.setPhoneNr("1234");
-        given().auth().basic("zoid@clam.com","1").and()
-                .body(cafe)
+        given().body(cafe)
                 .when()
                 .contentType(JSON).post(CAFE_PATH).then().statusCode(201);
     }
 
     @Test
     public void getAllCafesTestOk() {
-        given().auth().basic("zoid@clam.com","1").and().get(CAFE_PATH).then().statusCode(200);
+        get(CAFE_PATH).then().statusCode(200);
     }
 
 
@@ -54,16 +51,14 @@ public class CafeControllerTests {
         cafe.setCafeName("testcafe");
         cafe.setPhoneNr("1234");
 
-        Headers header = given().auth().basic("zoid@clam.com","1").and()
-                .contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
-        given().auth().basic("zoid@clam.com", "1").and()
-                .delete(header.getValue("Location")).then().statusCode(200);
+        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
+        given().delete(header.getValue("Location")).then().statusCode(200);
 
     }
 
     @Test
     public void deleteCafeByIdTestFail() {
-        delete(CAFE_PATH + BAD_ID).then().statusCode(401);
+        delete(CAFE_PATH + BAD_ID).then().statusCode(404);
     }
 
     @Test
@@ -72,12 +67,10 @@ public class CafeControllerTests {
         cafe.setCafeName("caffeoid");
         cafe.setPhoneNr("1234");
 
-        Headers header = given().auth().basic("zoid@clam.com","1").and()
-                .contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
+        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
         cafe.setCafeName("new cafe");
         cafe.setPhoneNr("3421");
-        given().auth().basic("zoid@clam.com","1").and()
-                .contentType(JSON).
+        given().contentType(JSON).
                 body(cafe).when().
                 put(header.getValue("Location")).
                 then().
@@ -87,8 +80,7 @@ public class CafeControllerTests {
     @Test
     public void putCafeByIdTestFail() {
         Cafe cafe = new Cafe();
-        given().auth().basic("zoid@clam.com", "1").and().
-                contentType(JSON).
+        given().contentType(JSON).
                 body(cafe).when().
                 put(CAFE_PATH + BAD_ID).
                 then().

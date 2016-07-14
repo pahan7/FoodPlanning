@@ -2,7 +2,10 @@
 package lv.ctco.jschool.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,11 +16,12 @@ public class Order {
     @Column(name = "ID")
     private int orderId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Meal meal;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Meal> mealList = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     public User getUser() {
@@ -36,10 +40,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Meal getMeal() {
-        return meal;}
+    public List<Meal> getMealList() {
+        return mealList;
+    }
 
-    public void setMeal(Meal meal) {
-        this.meal = meal;
+    public void setMealList(Meal meal) {
+        mealList.add(meal);
     }
 }

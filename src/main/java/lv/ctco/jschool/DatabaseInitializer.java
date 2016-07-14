@@ -27,10 +27,12 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
         User user = new User();
+        Order order = new Order();
         user.setFirstName("John");
         user.setLastName("Zoidberg");
         user.setEmail("zoid@clam.com");
         user.setPassword("1");
+        user.setOrder(order);
         UserRoles userRoles = new UserRoles();
         userRoles.setRole("USER");
         user.setUserRoles(Arrays.asList(userRoles));
@@ -49,10 +51,20 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         cafeBabe.setPhoneNr("23344556");
         cafeRepository.save(cafeBabe);
 
-        Order order = new Order();
-        order.setMeal(meal);
+
+        order.setMealList(meal);
         order.setUser(user);
         orderRepository.save(order);
 
+
+        User admin = new User();
+        admin.setFirstName("admin");
+        admin.setLastName("admin");
+        admin.setEmail("admin");
+        admin.setPassword("admin");
+        UserRoles adminRole = new UserRoles();
+        adminRole.setRole("ROLE_ADMIN");
+        admin.setUserRoles(Arrays.asList(adminRole));
+        userRepository.save(admin);
     }
 }

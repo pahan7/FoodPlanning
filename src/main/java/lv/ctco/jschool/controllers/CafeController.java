@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,9 +20,11 @@ import static lv.ctco.jschool.Consts.*;
 @RestController
 @CrossOrigin
 @RequestMapping(CAFE_PATH)
+@Secured("ROLE_ADMIN")
 public class CafeController {
     @Autowired
     CafeRepository cafeRepository;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAllCafes() {

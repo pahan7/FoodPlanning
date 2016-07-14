@@ -58,7 +58,7 @@ public class UserController {
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder b) {
         if (userRepository.findUserByEmail(user.getEmail()) != null){
             UserRoles userRoles = new UserRoles();
-            userRoles.setRole("USER");
+            userRoles.setRole("ROLE_USER");
             user.setUserRoles(Arrays.asList(userRoles));
             userRepository.save(user);
             UriComponents uriComponents =
