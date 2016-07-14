@@ -8,9 +8,8 @@ public class Meal {
     @GeneratedValue
     @Column
     private int id;
-    @Column
+    @Column(nullable = false,unique = true)
     private String mealName;
-
     @Column
     private double price;
 

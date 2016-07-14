@@ -36,45 +36,48 @@ public class CafeControllerTests {
         Cafe cafe = new Cafe();
         cafe.setCafeName("cafe");
         cafe.setPhoneNr("1234");
-        given().
-                body(cafe).
-                when().
-                contentType(JSON).post(CAFE_PATH).then().statusCode(201);
+        given().auth().basic("zoid@clam.com","1").and()
+                .body(cafe)
+                .when()
+                .contentType(JSON).post(CAFE_PATH).then().statusCode(201);
     }
 
     @Test
     public void getAllCafesTestOk() {
-        get(CAFE_PATH).then().statusCode(200);
+        given().auth().basic("zoid@clam.com","1").and().get(CAFE_PATH).then().statusCode(200);
     }
 
 
     @Test
     public void deleteCafeByIdTestOk() {
         Cafe cafe = new Cafe();
-        cafe.setCafeName("cafe");
+        cafe.setCafeName("testcafe");
         cafe.setPhoneNr("1234");
 
-        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
-        delete(header.getValue("Location")).then().statusCode(200);
+        Headers header = given().auth().basic("zoid@clam.com","1").and()
+                .contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
+        given().auth().basic("zoid@clam.com", "1").and()
+                .delete(header.getValue("Location")).then().statusCode(200);
 
     }
 
     @Test
     public void deleteCafeByIdTestFail() {
-        delete(CAFE_PATH + BAD_ID).then().statusCode(404);
+        delete(CAFE_PATH + BAD_ID).then().statusCode(401);
     }
 
     @Test
     public void putCafeByIdTestOk() {
         Cafe cafe = new Cafe();
-        cafe.setCafeName("cafe");
+        cafe.setCafeName("caffeoid");
         cafe.setPhoneNr("1234");
 
-        Headers header = given().contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
+        Headers header = given().auth().basic("zoid@clam.com","1").and()
+                .contentType(JSON).body(cafe).when().post(CAFE_PATH).getHeaders();
         cafe.setCafeName("new cafe");
         cafe.setPhoneNr("3421");
-        given().
-                contentType(JSON).
+        given().auth().basic("zoid@clam.com","1").and()
+                .contentType(JSON).
                 body(cafe).when().
                 put(header.getValue("Location")).
                 then().
@@ -84,7 +87,7 @@ public class CafeControllerTests {
     @Test
     public void putCafeByIdTestFail() {
         Cafe cafe = new Cafe();
-        given().
+        given().auth().basic("zoid@clam.com", "1").and().
                 contentType(JSON).
                 body(cafe).when().
                 put(CAFE_PATH + BAD_ID).

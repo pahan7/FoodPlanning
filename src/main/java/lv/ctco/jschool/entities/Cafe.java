@@ -3,6 +3,7 @@ package lv.ctco.jschool.entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Cafe {
@@ -11,8 +12,8 @@ public class Cafe {
     @Column
     private int id;
 
-    @Column
-    private String cafeName;
+    @Column(nullable = false,unique = true)
+    private String name;
 
     @Column
     private String phoneNr;
@@ -29,11 +30,11 @@ public class Cafe {
     }
 
     public String getCafeName() {
-        return cafeName;
+        return name;
     }
 
-    public void setCafeName(String cafeName) {
-        this.cafeName = cafeName;
+    public void setCafeName(String name) {
+        this.name = name;
     }
 
     public List<Meal> getMealList() {
@@ -50,5 +51,14 @@ public class Cafe {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addToMeals(Meal meal){
+        Optional<Meal>mealExists = mealList.stream()
+                .filter(m-> m.getMealName().equals(meal.getMealName()))
+                .findAny();
+        if (!mealExists.isPresent()){
+            mealList.add(meal);
+        }
     }
 }

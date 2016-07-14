@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
 import static lv.ctco.jschool.Consts.*;
 
 @RestController
@@ -29,15 +30,12 @@ public class CafeController {
     }
 
     @Transactional
-    @RequestMapping(path = "/{caffe_id}",method = RequestMethod.POST)
-    public ResponseEntity<?> addMealToCafe(@PathVariable("caffe_id") int caffeId,@RequestBody Meal meal, UriComponentsBuilder b) {
-        if (cafeRepository.exists(caffeId)) {
-            Cafe cafe = cafeRepository.findOne(caffeId);
-            List<Meal> newMeals = cafe.getMealList();
-            newMeals.add(meal);
-            cafe.setMealList(newMeals);
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> createCafe(@RequestBody Cafe cafe, UriComponentsBuilder b) {
+        if (cafeRepository.findByName(cafe.getCafeName()) == null) {
+            cafeRepository.save(cafe);
             UriComponents uriComponents =
-                    b.path(CAFE_PATH + "/{caffe_id}").buildAndExpand(cafe.getId(), meal.getId());
+                    b.path(CAFE_PATH + "/{id}").buildAndExpand(cafe.getId());
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(uriComponents.toUri());
             return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
@@ -45,15 +43,6 @@ public class CafeController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createNewCafe(@RequestBody Cafe cafe, UriComponentsBuilder b) {
-        cafeRepository.save(cafe);
-        UriComponents uriComponents =
-                b.path(CAFE_PATH + "/{id}").buildAndExpand(cafe.getId());
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.setLocation(uriComponents.toUri());
-        return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
-    }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCafeById(@PathVariable("id") int id) {
@@ -73,8 +62,6 @@ public class CafeController {
             Cafe c = cafeRepository.getOne(id);
             c.setCafeName(cafe.getCafeName());
             c.setPhoneNr(cafe.getPhoneNr());
-            c.setMealList(cafe.getMealList());
-            cafeRepository.save(c);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
