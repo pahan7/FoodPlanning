@@ -74,6 +74,7 @@
     <div class="jumbotron">
         <div class="container">
             <h2>Hi, username!</h2>
+
             <p>Choose your meal!</p>
 
         </div>
@@ -126,7 +127,27 @@
                     </div>
                 </div>
             </script>
+
+
+            <script id="11meals" type="text/x-handlebars-template">
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th colspan="2">Cafe: {{cafeName}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="meal">
+                            <td>{{mealName}}</td>
+                            <td>{{price}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </script>
         </div>
+
 
         <button type="button" onclick="RedirectAddSession();" class="btn btn-lg btn-primary">Order</button>
     </div>
@@ -137,7 +158,8 @@
     <footer>
         <p>&copy; 2016 JAVA School, Inc.</p>
     </footer>
-</div> <!-- /container -->
+</div>
+<!-- /container -->
 
 
 <!-- Bootstrap core JavaScript

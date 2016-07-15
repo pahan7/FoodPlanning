@@ -70,74 +70,46 @@
     </div>
 </nav>
 <div class="container">
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h2>Report</h2>
+
+        </div>
+    </div>
+
     <div class="container">
-<h2>Hi, username!</h2>
-        <p>Choose your meal!</p>
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="2">Cafe: {cafeName}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
 
-    </div>
-</div>
+                    <td>meal1</td>
+                    <td>amoun1</td>
+                </tr>
+                <tr>
 
-<div class="container">
-
-    <div clas="container">
-        <script id="cafe-list" type="text/x-handlebars-template">
-            <div class="container">
-                <div class="cafe-list">
-                    <h4>Welcome {{firstName}} {{lastName}} , now you can choose your meal for today</h4>
-                    <h4>Current Date : </h4>
-
-                    <style>
-                        h4 {
-                            display: block;
-                            font-size: .83em;
-                            margin-top: 1.67em;
-                            margin-bottom: 1.67em;
-                            margin-left: 0;
-                            margin-right: 0;
-                            font-weight: bold;
-                        }
-                    </style>
-                    <div>
-                        {{{body}}}
-                    </div>
-                </div>
-            </div>
-        </script>
-
-        <script id="meals" type="text/x-handlebars-template">
-            <div class="meals">
-                <h2>{{cafeName}}</h2>
-
-                <div class="mealList">
-                    {{#each mealList}}
-                    <div class="meal">
-                        <div class="list-group">
-                            <span class="list-group-item">{{mealName}}</span>
-                            <style>
-                                .list-group {
-                                    margin: 0;
-                                }
-                            </style>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
-            </div>
-        </script>
+                    <td>meal1</td>
+                    <td>amoun1</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <button type="button" onclick="RedirectAddSession();" class="btn btn-lg btn-primary">Order</button>
+
+    <hr>
+
+    <footer>
+        <p>&copy; 2016 JAVA School, Inc.</p>
+    </footer>
 </div>
-
-
-<hr>
-
-<footer>
-    <p>&copy; 2016 JAVA School, Inc.</p>
-</footer>
-</div> <!-- /container -->
+<!-- /container -->
 
 
 <!-- Bootstrap core JavaScript
