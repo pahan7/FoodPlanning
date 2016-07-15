@@ -1,6 +1,6 @@
 package lv.ctco.jschool.entities;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lv.ctco.jschool.validation.ValidEmail;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,10 +13,14 @@ public class User {
     @GeneratedValue
     @Column(name = "ID")
     private int id;
+    @Column
     private String firstName;
+    @Column
     private String lastName;
-    private String password;
+    @Column
+    private String pass;
     @ValidEmail
+    @Email
     private String email;
     private boolean orderIsMade;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -57,12 +61,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getFirstName() {
