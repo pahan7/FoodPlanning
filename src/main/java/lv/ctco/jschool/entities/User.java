@@ -1,5 +1,6 @@
 package lv.ctco.jschool.entities;
 import lv.ctco.jschool.validation.ValidEmail;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class User {
     @Column
     private String pass;
     @ValidEmail
-    @Column
+    @Email
     private String email;
     private boolean orderIsMade;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
