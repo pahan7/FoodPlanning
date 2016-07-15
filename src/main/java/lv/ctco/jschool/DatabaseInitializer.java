@@ -7,6 +7,7 @@ import lv.ctco.jschool.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,8 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
     UserRepository userRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
@@ -31,7 +34,7 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         user.setFirstName("John");
         user.setLastName("Zoidberg");
         user.setEmail("zoid@clam.com");
-        user.setPassword("1");
+        user.setPassword(passwordEncoder.encode("1234"));
         UserRoles userRoles = new UserRoles();
         userRoles.setRole("USER");
         user.setUserRoles(Arrays.asList(userRoles));
@@ -60,7 +63,7 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         admin.setFirstName("admin");
         admin.setLastName("admin");
         admin.setEmail("admin");
-        admin.setPassword("admin");
+        admin.setPassword(passwordEncoder.encode("admin"));
         UserRoles adminRole = new UserRoles();
         adminRole.setRole("ROLE_ADMIN");
         admin.setUserRoles(Arrays.asList(adminRole));

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
@@ -26,6 +27,8 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAllUsers() {
@@ -60,6 +63,7 @@ public class UserController {
             UserRoles userRoles = new UserRoles();
             userRoles.setRole("ROLE_USER");
             user.setUserRoles(Arrays.asList(userRoles));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             UriComponents uriComponents =
                     b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());

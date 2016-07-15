@@ -25,20 +25,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeRequests()
-                .antMatchers("/**").authenticated()
-                .and().httpBasic().and()
+                .antMatchers("//**").authenticated().and().formLogin()
+                .loginPage("/login.html")
+                .and().httpBasic().and().antMatcher("/login.html").anonymous().and()
                 .logout().logoutSuccessUrl("/login?logout").and()
                 .csrf().disable();
         httpSecurity.headers().frameOptions().disable();
     }
 
-
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.jdbcAuthentication().dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery(
                         "select email, password, 1 from USERS where email=?")
                 .authoritiesByUsernameQuery(
