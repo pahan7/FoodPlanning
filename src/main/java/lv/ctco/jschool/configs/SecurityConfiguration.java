@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers("//**").authenticated().and().formLogin()
                 .loginPage("/login.html")
-                .and().httpBasic().and().antMatcher("/login.html").anonymous().and()
+                .and().httpBasic().and().antMatcher("/login.html").anonymous().and().antMatcher("/registration.html").anonymous().and()
                 .logout().logoutSuccessUrl("/login?logout").and()
                 .csrf().disable();
         httpSecurity.headers().frameOptions().disable();
