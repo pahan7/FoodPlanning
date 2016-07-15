@@ -18,11 +18,25 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Meal> mealList = new ArrayList<>();
+    @Column
+    private boolean submited;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
+
+    public Order() {
+        this.submited = false;
+    }
+
+    public boolean isSubmited() {
+        return submited;
+    }
+
+    public void setSubmited(boolean submited) {
+        this.submited = submited;
+    }
 
     public User getUser() {
         return user;
@@ -42,6 +56,25 @@ public class Order {
 
     public List<Meal> getMealList() {
         return mealList;
+    }
+
+    public boolean removeMeal(int mealId) {
+        boolean isOK = false;
+        Meal mealToDelete = null;
+        //TODO //if no such meal??
+        for (Meal m : mealList) {
+            if (m.getId() == mealId) {
+                mealToDelete = m;
+            }
+        }
+        mealList.remove(mealToDelete);
+        return isOK;
+
+    }
+
+    public void addMeal(Meal meal) {
+
+        mealList.add(meal);
     }
 
     public void setMealList(Meal meal) {
