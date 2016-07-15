@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head lang="en">
     <meta charset="UTF-8">
     <title>Food Planning</title>
@@ -27,9 +29,10 @@
                         margin-end: 0;
                         font-weight: bold; }
                 </style>
-                <input type="text" id="userEmail" class="form-control input-sm chat-input" placeholder="example@gmail.com" />
+                <form name="f" th:action="@{/login}" method="post">
+                <input type="text" id="email" class="form-control" placeholder="example@gmail.com" />
                 </br>
-                <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+                <input type="text" id="pass" class="form-control" placeholder="pass" />
                 </br>
                 <div class="wrapper">
             <span class="group-btn">
@@ -37,6 +40,7 @@
                 <button onclick="" type="button" class="btn btn-warning btn-md">report</button>
             </span>
                 </div>
+                    </form>
             </div>
 
         </div>

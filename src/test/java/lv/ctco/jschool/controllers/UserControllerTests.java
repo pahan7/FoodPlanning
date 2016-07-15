@@ -43,7 +43,7 @@ public class UserControllerTests {
         user.setFirstName("John");
         user.setLastName("The first");
         user.setEmail("john@john.com");
-        user.setPassword("1234");
+        user.setPass("1234");
         Headers header = given().contentType(JSON).body(user).when().post(USER_PATH).getHeaders();
         get(header.getValue("Location")).then().body("password", equalTo("1234"));
 

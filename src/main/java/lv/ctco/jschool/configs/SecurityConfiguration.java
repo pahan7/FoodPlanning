@@ -25,9 +25,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeRequests()
-                .antMatchers("/**").authenticated().and().formLogin()
-                .loginPage("/login.html").permitAll()
-                .and().httpBasic().and().antMatcher("/login.html").anonymous().and().antMatcher("registration.html").anonymous().and()
+                .antMatchers("/meals**").authenticated().and().formLogin()
+                .loginPage("/login.html").and()
+//
+//                .antMatcher("/login.html").anonymous().and().antMatcher("registration.html").anonymous().and()
+                .httpBasic().and()
                 .logout().logoutSuccessUrl("/login?logout").and()
                 .csrf().disable();
         httpSecurity.headers().frameOptions().disable();
@@ -44,9 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery(
-                        "select email, password, 1 from USERS where email=?")
+                        "select email as login, pass, 1 from USERS where email=?")
                 .authoritiesByUsernameQuery(
-                        "select email,user_role " +
+                        "select email as login,user_role " +
                                 "from users u " +
                                 "INNER JOIN user_roles ur ON ur.userfk = u.id " +
                                 "where u.email=?");

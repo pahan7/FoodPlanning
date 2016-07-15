@@ -63,7 +63,7 @@ public class UserController {
             UserRoles userRoles = new UserRoles();
             userRoles.setRole("ROLE_USER");
             user.setUserRoles(Arrays.asList(userRoles));
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPass(passwordEncoder.encode(user.getPass()));
             userRepository.save(user);
             UriComponents uriComponents =
                     b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());
@@ -83,7 +83,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else {
             User u = userRepository.getOne(id);
-            u.setPassword(user.getPassword());
+            u.setPass(user.getPass());
             u.setEmail(user.getEmail());
             u.setLastName(user.getLastName());
             u.setFirstName(user.getFirstName());
