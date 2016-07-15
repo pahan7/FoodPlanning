@@ -62,7 +62,7 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         User admin = new User();
         admin.setFirstName("admin");
         admin.setLastName("admin");
-        admin.setEmail("admin");
+        admin.setEmail("admin@gmail.com");
         admin.setPassword(passwordEncoder.encode("admin"));
         UserRoles adminRole = new UserRoles();
         adminRole.setRole("ROLE_ADMIN");
