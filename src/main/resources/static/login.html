@@ -1,55 +1,127 @@
 <!DOCTYPE html>
-<html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+      integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src = "js/main.js"></script>
+<head>
     <meta charset="UTF-8">
-    <title>Food Planning</title>
-    <script src="/vendor/handlebars.js"></script>
-    <script src="/js/login.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../foodplanning/src/main/resources/static/css/login.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>Login</title>
 </head>
 <body>
-<div class="container">
-    <style></style>
-    <div class="row">
-        <div class="col-md-offset-5 col-md-3">
-            <div class="form-login">
-                <h5>Welcome to Food planning application!</h5>
-                <style>
-                    h5 {
-                        display: block;
-                        font-size: .83em;
-                        margin-before: 1.67em;
-                        margin-after: 1.67em;
-                        margin-start: 0;
-                        margin-end: 0;
-                        font-weight: bold; }
-                </style>
-                <form name="f" th:action="@{/login}" method="post">
-                <input type="text" id="email" class="form-control" placeholder="example@gmail.com" />
-                </br>
-                <input type="text" id="pass" class="form-control" placeholder="pass" />
-                </br>
-                <div class="wrapper">
-            <span class="group-btn">
-                <button onclick="validate()" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></button>
-                <button onclick="" type="button" class="btn btn-warning btn-md">report</button>
-            </span>
-                </div>
-                    </form>
-            </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Books</a>
+        </div>
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="login.html">Sign In<span class="sr-only">(current)</span></a></li>
+                <li><a href="request.html">Request Books</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+            </ul>
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form name="f" th:action="@{/login}" method="post">
+                                <!--<form id="login-form" action="" method="post" role="form" style="display: block;">-->
+                                    <div class="form-group" id="usernameForm">
+                                        <input type="text" name="username" id="username" tabindex="1"
+                                               class="form-control" placeholder="Username" value="" required>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" tabindex="2"
+                                               class="form-control" placeholder="Password" required>
+                                    </div>
+                                    <!--<form name="f" action="http://localhost:8080/main.html">-->
+                                        <!--<div class="form-group">-->
+                                            <!--<div class="row">-->
+                                                <!--<div class="col-sm-6 col-sm-offset-3">-->
+
+                                                    <input type="submit"  name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In" >
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</form>-->
+
+                                <!--</form>-->
+                            </form>
+                            <form name="f" action="http://localhost:8080/register.html">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit"  name="register-submit" id="register-submit"
+                                                   tabindex="4" class="form-control btn btn-login" value="Register"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+
+<!--<h1>Login</h1>-->
+<!--<form name="user" onsubmit="login(event)">-->
+<!--Login:<br>-->
+<!--<input type="text" name="name"><br>-->
+<!--Password:<br>-->
+<!--<input type="text" name="password"><br><br>-->
+<!--<input type="submit" value="Login">-->
+<!--</form>-->
+<!--<h1>Sign up</h1>-->
+<!--<form name="user" onsubmit="signUp(event)">-->
+<!--Your login:<br>-->
+<!--<input type="text" name="name"><br>-->
+<!--Your password:<br>-->
+<!--<input type="text" name="password"><br><br>-->
+<!--<input type="submit" value="Sign up">-->
+<!--</form>-->
+
+<div class="list">
+
+</div>
+
 </body>
-
-
 </html>
 
 

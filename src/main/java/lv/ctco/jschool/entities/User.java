@@ -1,4 +1,5 @@
 package lv.ctco.jschool.entities;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lv.ctco.jschool.validation.ValidEmail;
 import org.hibernate.validator.constraints.Email;
 
@@ -7,34 +8,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private int id;
+
     @Column
     private String firstName;
-    @Column
+
+    @Column(name = "username")
     private String lastName;
-    @Column
+    @Column(name = "pass")
     private String pass;
     @ValidEmail
     @Email
+    @Column(name = "email")
     private String email;
+    @Column
     private boolean orderIsMade;
+    @Column
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<UserRoles> userRoles = new ArrayList<>();
+    private List<UserRole> userRole = new ArrayList<>();
+//
+//    public List<UserRole> getUserRoles() {
+//        return userRoles;
+//    }
+//
+//    public void setUserRoles(List<UserRole> userRoles) {
+////        if (userRoles == null) return;
+////        this.userRoles.clear();
+////        this.userRoles.addAll(userRoles);
+////        userRoles.forEach(u -> u.setUser(this));
+//        this.userRoles = userRoles;
+//    }
 
-    public List<UserRoles> getUserRoles() {
-        return userRoles;
+
+    public List<UserRole> getUserRole() {
+        return userRole;
     }
 
-    public void setUserRoles(List<UserRoles> userRoles) {
-        if (userRoles == null) return;
-        this.userRoles.clear();
-        this.userRoles.addAll(userRoles);
-        userRoles.forEach(u -> u.setUser(this));
+    public void  setUserRole(List<UserRole> userRole) {
+        this.userRole = userRole;
     }
 
     public String getLastName() {

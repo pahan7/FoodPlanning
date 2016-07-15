@@ -7,15 +7,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user_roles")
-public class UserRoles {
+public class UserRole {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "user_role")
     private String role;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userfk", referencedColumnName = "id")
+    @JoinColumn(name = "userfk",referencedColumnName = "id")
     private User user;
 
     public long getId() {

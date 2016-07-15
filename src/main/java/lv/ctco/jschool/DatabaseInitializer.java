@@ -35,9 +35,10 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         user.setLastName("Zoidberg");
         user.setEmail("zoid@clam.com");
         user.setPass(passwordEncoder.encode("1234"));
-        UserRoles userRoles = new UserRoles();
-        userRoles.setRole("USER");
-        user.setUserRoles(Arrays.asList(userRoles));
+        UserRole userRole = new UserRole();
+        userRole.setRole("USER");
+        user.setUserRole(Arrays.asList(userRole));
+        userRole.setUser(user);
         userRepository.save(user);
 
         Meal meal = new Meal();
@@ -64,9 +65,10 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         admin.setLastName("admin");
         admin.setEmail("admin@gmail.com");
         admin.setPass(passwordEncoder.encode("admin"));
-        UserRoles adminRole = new UserRoles();
+        UserRole adminRole = new UserRole();
+        adminRole.setUser(admin);
         adminRole.setRole("ROLE_ADMIN");
-        admin.setUserRoles(Arrays.asList(adminRole));
+        admin.setUserRole(Arrays.asList(adminRole));
         userRepository.save(admin);
     }
 }

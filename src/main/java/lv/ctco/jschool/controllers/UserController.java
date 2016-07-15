@@ -1,6 +1,6 @@
 package lv.ctco.jschool.controllers;
 
-import lv.ctco.jschool.entities.UserRoles;
+import lv.ctco.jschool.entities.UserRole;
 import lv.ctco.jschool.repository.OrderRepository;
 import lv.ctco.jschool.repository.UserRepository;
 import lv.ctco.jschool.entities.User;
@@ -61,9 +61,10 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder b) {
         if (userRepository.findUserByEmail(user.getEmail()) == null) {
-            UserRoles userRoles = new UserRoles();
-            userRoles.setRole("ROLE_USER");
-            user.setUserRoles(Arrays.asList(userRoles));
+            UserRole userRole = new UserRole();
+            userRole.setRole("ROLE_USER");
+            user.setUserRole(Arrays.asList(userRole));
+//            user.setUserRoles(Arrays.asList(userRole));
             user.setPass(passwordEncoder.encode(user.getPass()));
             userRepository.save(user);
             UriComponents uriComponents =
