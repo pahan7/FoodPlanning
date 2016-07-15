@@ -77,6 +77,26 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    @Transactional
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<?> addUserNoJSon(@ModelAttribute User user, UriComponentsBuilder b) {
+        if (userRepository.findUserByEmail(user.getEmail()) == null) {
+            UserRole userRole = new UserRole();
+            userRole.setRole("ROLE_USER");
+            user.setUserRole(Arrays.asList(userRole));
+//            user.setUserRoles(Arrays.asList(userRole));
+            user.setPass(passwordEncoder.encode(user.getPass()));
+            userRepository.save(user);
+            UriComponents uriComponents =
+                    b.path(USER_PATH + "/{id}").buildAndExpand(user.getId());
+
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setLocation(uriComponents.toUri());
+
+            return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> putUserById(@PathVariable("id") int id, @RequestBody User user) {
