@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,21 +37,21 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> GetUserById(@PathVariable("id") int id) {
-        if (!userRepository.exists(id))
+    @RequestMapping(path = "/id{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> GetUserById(@PathVariable("id") int id, Principal principal) {
+        if (!userRepository.exists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else {
-            User user = userRepository.findOne(id);
+        } else {
+            User user = userRepository.findUserByEmail(principal.getName());
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
     }
 
     @RequestMapping(path = "/{email}", method = RequestMethod.GET)
-    public ResponseEntity<?> GetUserByEmail(@PathVariable("email") String email) {
-
+    public ResponseEntity<?> GetUserByEmail(@PathVariable("email") String email, Principal principal) {
         User user = userRepository.findUserByEmail(email);
-        if (userRepository.exists(user.getId())){
+        userRepository.findUserByEmail(principal.getName());
+        if (userRepository.exists(user.getId())) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,7 +60,7 @@ public class UserController {
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder b) {
-        if (userRepository.findUserByEmail(user.getEmail()) == null){
+        if (userRepository.findUserByEmail(user.getEmail()) == null) {
             UserRoles userRoles = new UserRoles();
             userRoles.setRole("ROLE_USER");
             user.setUserRoles(Arrays.asList(userRoles));
