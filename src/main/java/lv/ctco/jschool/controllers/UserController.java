@@ -82,9 +82,10 @@ public class UserController {
     public ResponseEntity<?> addUserNoJSon(@ModelAttribute User user, UriComponentsBuilder b) {
         if (userRepository.findUserByEmail(user.getEmail()) == null) {
             UserRole userRole = new UserRole();
-            userRole.setRole("ROLE_USER");
+            userRole.setRole("USER");
             user.setUserRole(Arrays.asList(userRole));
 //            user.setUserRoles(Arrays.asList(userRole));
+            userRole.setUser(user);
             user.setPass(passwordEncoder.encode(user.getPass()));
             userRepository.save(user);
             UriComponents uriComponents =
