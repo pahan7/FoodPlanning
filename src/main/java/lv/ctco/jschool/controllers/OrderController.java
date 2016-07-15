@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import static lv.ctco.jschool.Consts.USER_PATH;
 
 @RestController
 @CrossOrigin
-@RequestMapping(USER_PATH + "/{userId}" + ORDER_PATH)
+@RequestMapping(USER_PATH + ORDER_PATH)
 public class OrderController {
     @Autowired
     UserRepository userRepository;
@@ -31,95 +32,89 @@ public class OrderController {
     OrderRepository orderRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getOrder(@PathVariable("userId") int userId) {
-        if (userRepository.exists(userId)) {
-            Order order = orderRepository.findByUser(userRepository.findOne(userId));
-            return new ResponseEntity<>(order, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> getOrder(Principal principal) {
+        User user = userRepository.findUserByEmail(principal.getName());
+        Order order = orderRepository.findByUser(user);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    public void createOrder(int userId, Meal meal) {
-        Order order = new Order();
-        User user = userRepository.findOne(userId);
-        order.setMealList(meal);
-        order.setUser(user);
-        orderRepository.saveAndFlush(order);
+    @RequestMapping(path = "/{oId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getOrder(@PathVariable("oId") int oId, Principal principal) {
+        Order order = orderRepository.findOne(oId);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> postMealToOrder(@PathVariable("userId") int userId,
-                                             @RequestBody Meal meal,
+    public ResponseEntity<?> postMealToOrder(Principal principal,
                                              UriComponentsBuilder b) {
-        if (userRepository.exists(userId)) {
-            User user = userRepository.findOne(userId);
-            Order order = orderRepository.findByUser(user);
-            if (order != null) {
-                order.setMealList(meal);
-                orderRepository.save(order);
-
-                UriComponents uriComponents =
-                        b.path(USER_PATH + "/" + userId + ORDER_PATH + "/{orderId}").buildAndExpand(order.getOrderId());
-                HttpHeaders responseHeaders = new HttpHeaders();
-                responseHeaders.setLocation(uriComponents.toUri());
-
-                return new ResponseEntity<String>(responseHeaders, HttpStatus.CREATED);
-            } else {
-                createOrder(userId, meal);
-                return new ResponseEntity<String>(HttpStatus.CREATED);
+        User user = userRepository.findUserByEmail(principal.getName());
+        Order order = orderRepository.findByUser(user);
+        if (order != null) {
+            if (order.isSubmited()) {
+                Order newOrder = new Order();
+                orderRepository.save(newOrder);
+                return new ResponseEntity<>("ok ok", HttpStatus.CREATED);
             }
+            return new ResponseEntity<>("user has unsubmited order ", HttpStatus.BAD_REQUEST);
+        } else {
+            Order newOrder = new Order();
+            newOrder.setUser(user);
+            orderRepository.save(newOrder);
+            return new ResponseEntity<>("Ok 2", HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(path = "/{orderId}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateOrder(@PathVariable("userId") int userId,
+    public ResponseEntity<?> updateOrder(Principal principal,
                                          @PathVariable("orderId") int orderId,
                                          @RequestBody Meal meal,
                                          UriComponentsBuilder b) {
-        if (userRepository.exists(userId)) {
-            Order order = orderRepository.findOne(orderId);
-            List<Meal> mealList = new ArrayList<>();
-            mealList.add(meal);
-            order.setMealList(mealList);
+        User user = userRepository.findUserByEmail(principal.getName());
+        Order order = orderRepository.findOne(orderId);
+        List<Meal> mealList = order.getMealList();
+        if (order.isSubmited()) {
+            List<Meal> newMealList = new ArrayList<>();
+            newMealList.add(meal);
+            order.setMealList(newMealList);
             orderRepository.save(order);
             UriComponents uriComponents =
-                    b.path(USER_PATH + "/" + userId + ORDER_PATH + "/{orderId}").buildAndExpand(order.getOrderId());
+                    b.path(USER_PATH + "/" + user.getId() + ORDER_PATH + "/{orderId}").buildAndExpand(order.getOrderId());
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(uriComponents.toUri());
-
             return new ResponseEntity<String>(responseHeaders, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        mealList.add(meal);
+        order.setMealList(mealList);
+        orderRepository.save(order);
+        UriComponents uriComponents =
+                b.path(USER_PATH + "/" + user.getId() + ORDER_PATH + "/{orderId}").buildAndExpand(order.getOrderId());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setLocation(uriComponents.toUri());
+
+        return new ResponseEntity<String>(responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{orderId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteOrder(@PathVariable("userId") int userId,
+    public ResponseEntity<?> deleteOrder(Principal principal,
                                          @PathVariable("orderId") int orderId) {
-        if (userRepository.exists(userId)) {
-            orderRepository.delete(orderId);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        orderRepository.delete(orderId);
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     @RequestMapping(path = "/{orderId}/{mealId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteOneMealFromOrder(@PathVariable("userId") int userId,
+    public ResponseEntity<?> deleteOneMealFromOrder(Principal principal,
                                                     @PathVariable("orderId") int orderId,
-                                                    @PathVariable("mealId") int mealId){
-        if (userRepository.exists(userId)) {
-            if(orderRepository.exists(orderId)){
-                Order order = orderRepository.findOne(orderId);
-                //TODO
-                List<Meal> mealList = order.getMealList();
-                Meal meal = mealList.get(mealId);
-                mealList.remove(meal);
-                order.setMealList(mealList);
-                orderRepository.save(order);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+                                                    @PathVariable("mealId") int mealId) {
+
+        if (orderRepository.exists(orderId)) {
+            Order order = orderRepository.findOne(orderId);
+            order.removeMeal(mealId);
+            orderRepository.save(order);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 }
