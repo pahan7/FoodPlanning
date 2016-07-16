@@ -6,6 +6,12 @@ function loadMeals() {
         });
 }
 
+function getUserName(){
+
+    var userName = currentUser.
+}
+
+
 function drawMealList() {
     loadMeals().then(function(cafes) {
         var cafeListTemplate = Handlebars.compile(document.querySelector('#cafe-list').innerHTML);
