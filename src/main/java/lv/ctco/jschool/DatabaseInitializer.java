@@ -41,18 +41,25 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         userRole.setUser(user);
         userRepository.save(user);
 
-        Meal meal = new Meal();
-        meal.setMealName("Pigs blood");
-        meal.setPrice(23);
+        Meal mealOne = new Meal();
+        mealOne.setMealName("Pigs blooood");
+        mealOne.setPrice(23);
 
-        List<Meal> mealList = new ArrayList<>();
-        mealList.add(meal);
+        Meal mealTwo = new Meal();
+        mealTwo.setMealName("Pigs blood");
+        mealTwo.setPrice(25);
+
+        List<Meal> mealList1 = new ArrayList<>();
+        mealList1.add(mealOne);
+
+        List<Meal> mealList2 = new ArrayList<>();
+        mealList2.add(mealTwo);
 
 
 
         Cafe cafeBabe = new Cafe();
         cafeBabe.setCafeName("Cafe Babe");
-        cafeBabe.setMealList(mealList);
+        cafeBabe.setMealList(mealList1);
         cafeBabe.setPhoneNr("23344556");
         cafeRepository.save(cafeBabe);
 
@@ -60,6 +67,16 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
 //        order.setMealList(meal);
 //        order.setUser(user);
 //        orderRepository.save(order);
+        Cafe cafeBabe2 = new Cafe();
+        cafeBabe2.setCafeName("Cafe Babe2");
+        cafeBabe2.setMealList(mealList2);
+        cafeBabe2.setPhoneNr("233441116");
+        cafeRepository.save(cafeBabe2);
+
+
+        order.setMealList(mealOne);
+        order.setUser(user);
+        orderRepository.save(order);
 
 
         User admin = new User();
@@ -74,7 +91,7 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         userRepository.save(admin);
 
 
-        order.setMealList(meal);
+        order.setMealList(mealOne);
         order.setUser(admin);
         orderRepository.save(order);
     }
