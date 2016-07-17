@@ -1,5 +1,6 @@
 package lv.ctco.jschool.controllers;
 
+import lv.ctco.jschool.entities.CafeDTO;
 import lv.ctco.jschool.repository.CafeRepository;
 import lv.ctco.jschool.entities.Cafe;
 import lv.ctco.jschool.entities.Meal;
@@ -34,17 +35,21 @@ public class CafeController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<?> createCafe(@ModelAttribute Cafe cafe, UriComponentsBuilder b) {
-        if (cafeRepository.findByName(cafe.getCafeName()) != null) {
+    public ResponseEntity<?> createCafe(@ModelAttribute CafeDTO cafeDTO, UriComponentsBuilder b) {
+       // if (cafeRepository.findByName(cafe.getCafeName()) == ) {
+        Cafe cafe = new Cafe();
+            cafe.setCafeName(cafeDTO.getCafeTitle());
+            cafe.setPhoneNr(cafeDTO.getPhoneNr());
             cafeRepository.save(cafe);
             UriComponents uriComponents =
                     b.path(CAFE_PATH + "/{id}").buildAndExpand(cafe.getId());
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(uriComponents.toUri());
             return new ResponseEntity<>(responseHeaders, HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
