@@ -21,7 +21,7 @@ import static lv.ctco.jschool.Consts.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping(CAFE_PATH + "/{cId}" + MEAL_PATH)
+@RequestMapping(CAFE_PATH + MEAL_PATH)
 public class MealController {
 
     @Autowired
@@ -38,11 +38,11 @@ public class MealController {
     }
 
     @Transactional
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> addOneMeal(@PathVariable("cId") int cafeId,
-                                        @RequestBody Meal inputMeal, UriComponentsBuilder b) {
-        if (cafeRepository.exists(cafeId)) {
-            Cafe cafe = cafeRepository.findOne(cafeId);
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<?> addOneMeal(@ModelAttribute Meal inputMeal,String cafeId, UriComponentsBuilder b) {
+        int cafeIdi = Integer.parseInt(cafeId);
+        if (cafeRepository.exists(cafeIdi)) {
+            Cafe cafe = cafeRepository.findOne(cafeIdi);
             Meal meal = inputMeal;
             meal.setCafeId(cafe.getId());
             if (cafe.addToMeals(meal)) {
