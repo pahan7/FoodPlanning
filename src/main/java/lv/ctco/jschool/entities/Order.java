@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,14 +21,24 @@ public class Order {
     private List<Meal> mealList = new ArrayList<>();
     @Column
     private boolean submited;
-
+    @Column
+    private Date submissionDate;
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
+
     public Order() {
         this.submited = false;
+    }
+
+    public Date getSubmissionDate() {
+        return submissionDate;
+    }
+
+    public void setSubmissionDate(Date submissionDate) {
+        this.submissionDate = submissionDate;
     }
 
     public boolean isSubmited() {

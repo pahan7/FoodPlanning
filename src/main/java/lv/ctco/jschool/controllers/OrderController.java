@@ -96,8 +96,10 @@ public class OrderController {
     }
 
     @RequestMapping(path = "/{orderId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteOrder(Principal principal,
-                                         @PathVariable("orderId") int orderId) {
+    public ResponseEntity<?> deleteOrder(@PathVariable("orderId") int orderId) {
+        Order order  =orderRepository.findOne(orderId);
+        List<Meal> emptyOrderList = new ArrayList<>();
+        order.setMealList(emptyOrderList);
         orderRepository.delete(orderId);
         return new ResponseEntity<>(HttpStatus.OK);
 

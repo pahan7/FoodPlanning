@@ -1,4 +1,5 @@
 package lv.ctco.jschool.entities;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lv.ctco.jschool.validation.ValidEmail;
 import org.hibernate.validator.constraints.Email;
@@ -50,7 +51,7 @@ public class User {
         return userRole;
     }
 
-    public void  setUserRole(List<UserRole> userRole) {
+    public void setUserRole(List<UserRole> userRole) {
         this.userRole = userRole;
     }
 

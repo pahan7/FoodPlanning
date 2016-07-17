@@ -12,7 +12,7 @@ public class Cafe {
     @Column
     private int id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column
@@ -53,21 +53,22 @@ public class Cafe {
         this.id = id;
     }
 
-    public boolean addToMeals(Meal meal){
-        Optional<Meal>mealExists = mealList.stream()
-                .filter(m-> m.getMealName().equals(meal.getMealName()))
+    public boolean addToMeals(Meal meal) {
+        Optional<Meal> mealExists = mealList.stream()
+                .filter(m -> m.getMealName().equals(meal.getMealName()))
                 .findAny();
-        if (!mealExists.isPresent()){
+        if (!mealExists.isPresent()) {
             mealList.add(meal);
             return true;
         }
         return false;
     }
-    public boolean deleteMeal(int mealId){
-        Optional<Meal>mealExists = mealList.stream()
-                .filter(m -> m.getId()==mealId)
+
+    public boolean deleteMeal(int mealId) {
+        Optional<Meal> mealExists = mealList.stream()
+                .filter(m -> m.getId() == mealId)
                 .findAny();
-        if (mealExists.isPresent()){
+        if (mealExists.isPresent()) {
             Meal mealToDelete = mealExists.get();
             mealList.remove(mealToDelete);
             return true;
@@ -75,11 +76,11 @@ public class Cafe {
         return false;
     }
 
-    public boolean updateMeal(Meal meal,int mealId){
-        Optional<Meal>mealExists = mealList.stream()
+    public boolean updateMeal(Meal meal, int mealId) {
+        Optional<Meal> mealExists = mealList.stream()
                 .filter(m -> m.getId() == mealId)
                 .findAny();
-        if (mealExists.isPresent()){
+        if (mealExists.isPresent()) {
             Meal mealToUpdate = mealExists.get();
             mealToUpdate.setMealName(meal.getMealName());
             mealToUpdate.setPrice(meal.getPrice());

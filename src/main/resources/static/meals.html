@@ -36,14 +36,14 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!--
-      <script type="text/javascript">
-          function RedirectAddSession() {
-              window.location="http://localhost:8080/addSession.html";
-          }
-          //        function RedirectViewPendingSessions() {
-          //            window.location="http://localhost:8080/addSession.html";
-          //        }
-      </script> -->
+          <script type="text/javascript">
+              function RedirectAddSession() {
+                  window.location="http://localhost:8080/addSession.html";
+              }
+              //        function RedirectViewPendingSessions() {
+              //            window.location="http://localhost:8080/addSession.html";
+              //        }
+          </script> -->
 
     <script src="vendor/handlebars.js"></script>
     <script src="js/meal.js"></script>
@@ -81,18 +81,14 @@
 
                 <div class="jumbotron">
                     <div class="container">
-                        <h2>Hi, username!</h2>
-
-                        <p>Choose your meal!</p>
+                        <h2>Hi!</h2>
+                        <h2>Choose your meal!</h2>
 
                     </div>
                 </div>
                 <div clas="container">
                     <div class="container">
                         <div class="cafe-list">
-                            <h4>Welcome {{firstName}} {{lastName}} , now you can choose your meal for today</h4>
-                            <h4>Current Date : </h4>
-
                             <style>
                                 h4 {
                                     display: block;
@@ -109,7 +105,7 @@
                             </div>
                         </div>
                         <hr>
-                        <button type="button" onclick="RedirectAddSession();" class="btn btn-lg btn-primary">Order</button>
+                        <button type="submit" onclick="addMealsToOrder(event);" class="btn btn-lg btn-primary">Order</button>
 
                         <hr>
                         <hr>
@@ -122,7 +118,8 @@
             </div>
         </script>
 
-        <script id="meals" type="text/x-handlebars-template">
+        <script id="58meals" type="text/x-handlebars-template">
+
             <div class="meals">
                 <h2>{{cafeName}}</h2>
 
@@ -141,25 +138,50 @@
                     {{/each}}
                 </div>
             </div>
+
         </script>
 
 
-        <script id="11meals" type="text/x-handlebars-template">
-            <div class="col-md-6">
+        <script id="meals" type="text/x-handlebars-template">
+            <div class="col-md-12">
                 <table class="table table-bordered">
                     <thead>
+
                     <tr>
                         <th colspan="2">Cafe: {{cafeName}}</th>
                     </tr>
+
+                    <tr>
+                        <div class="col-md-6">
+                            <td>Meal</td>
+                        </div>
+                        <div class="col-md-2">
+
+                            <td>Price</td>
+                        </div>
+                    </tr>
                     </thead>
                     <tbody>
+                    {{#each mealList}}
+                    <form class="mealsForm" onsubmit="addMealsToOrder();">
                     <tr class="meal">
-                        <td>{{mealName}}</td>
-                        <td>{{price}}</td>
+
+                        <div class="col-md-6">
+                            <td>
+                                <input type="submit"  id="{{mealName}}" value="Add">    {{mealName}}
+                            </td>
+                        </div>
+                        <div class="col-md-2">
+                            <td>{{price}}</td>
+                        </div>
+
                     </tr>
+                        </form>>
                     </tbody>
+                    {{/each}}
                 </table>
             </div>
+
         </script>
     </div>
 
