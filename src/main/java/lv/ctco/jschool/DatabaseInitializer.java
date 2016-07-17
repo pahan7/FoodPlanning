@@ -56,7 +56,6 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         mealList2.add(mealTwo);
 
 
-
         Cafe cafeBabe = new Cafe();
         cafeBabe.setCafeName("Cafe Babe");
         cafeBabe.setMealList(mealList1);
@@ -89,7 +88,6 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         adminRole.setRole("ROLE_ADMIN");
         admin.setUserRole(Arrays.asList(adminRole));
         userRepository.save(admin);
-
 
 
 //

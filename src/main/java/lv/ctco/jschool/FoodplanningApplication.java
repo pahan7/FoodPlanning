@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
 public class FoodplanningApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(FoodplanningApplication.class, args);
-	}
-
-
+    public static void main(String[] args) {
+        SpringApplication.run(FoodplanningApplication.class, args);
+    }
 }

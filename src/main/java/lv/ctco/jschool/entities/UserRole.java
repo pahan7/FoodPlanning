@@ -15,7 +15,7 @@ public class UserRole {
     private String role;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userfk",referencedColumnName = "id")
+    @JoinColumn(name = "userfk", referencedColumnName = "id")
     private User user;
 
     public long getId() {
