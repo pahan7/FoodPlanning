@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new StandardPasswordEncoder("blablabla");
+        return new StandardPasswordEncoder();
     }
 
     @Autowired

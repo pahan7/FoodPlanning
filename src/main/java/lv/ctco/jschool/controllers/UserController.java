@@ -77,6 +77,7 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
     @Transactional
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     public ResponseEntity<?> addUserNoJSon(@ModelAttribute User user, UriComponentsBuilder b) {
