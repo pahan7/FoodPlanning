@@ -55,12 +55,18 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         List<Meal> mealList2 = new ArrayList<>();
         mealList2.add(mealTwo);
 
+
+
         Cafe cafeBabe = new Cafe();
         cafeBabe.setCafeName("Cafe Babe");
         cafeBabe.setMealList(mealList1);
         cafeBabe.setPhoneNr("23344556");
         cafeRepository.save(cafeBabe);
 
+//
+//        order.setMealList(meal);
+//        order.setUser(user);
+//        orderRepository.save(order);
         Cafe cafeBabe2 = new Cafe();
         cafeBabe2.setCafeName("Cafe Babe2");
         cafeBabe2.setMealList(mealList2);
@@ -83,5 +89,12 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         adminRole.setRole("ROLE_ADMIN");
         admin.setUserRole(Arrays.asList(adminRole));
         userRepository.save(admin);
+
+
+
+//
+//        order.setMealList(mealOne);
+//        order.setUser(admin);
+//        orderRepository.save(order);
     }
 }

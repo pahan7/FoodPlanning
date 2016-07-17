@@ -33,9 +33,9 @@ public class CafeController {
     }
 
     @Transactional
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createCafe(@RequestBody Cafe cafe, UriComponentsBuilder b) {
-        if (cafeRepository.findByName(cafe.getCafeName()) == null) {
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<?> createCafe(@ModelAttribute Cafe cafe, UriComponentsBuilder b) {
+        if (cafeRepository.findByName(cafe.getCafeName()) != null) {
             cafeRepository.save(cafe);
             UriComponents uriComponents =
                     b.path(CAFE_PATH + "/{id}").buildAndExpand(cafe.getId());

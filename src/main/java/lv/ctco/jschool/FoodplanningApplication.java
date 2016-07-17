@@ -10,4 +10,6 @@ public class FoodplanningApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FoodplanningApplication.class, args);
 	}
+
+
 }

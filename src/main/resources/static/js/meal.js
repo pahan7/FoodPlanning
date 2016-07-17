@@ -6,6 +6,7 @@ function loadMeals() {
         });
 }
 
+
 function getCookie(userName) {
     var name = userName + "=";
     var ca = document.cookie.split(';');

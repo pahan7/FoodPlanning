@@ -38,7 +38,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        httpSecurity.headers().frameOptions().disable();
 
         httpSecurity.authorizeRequests()
-                .antMatchers("/meals**").authenticated().and().formLogin()
+                .antMatchers("/meals**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN").and().formLogin()
                 .loginPage("/login.html").permitAll().and()
                 .httpBasic().and()
                 .logout().logoutSuccessUrl("/login?logout").and()
