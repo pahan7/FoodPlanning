@@ -91,8 +91,10 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         userRepository.save(admin);
 
 
-        order.setMealList(mealOne);
-        order.setUser(admin);
-        orderRepository.save(order);
+
+//
+//        order.setMealList(mealOne);
+//        order.setUser(admin);
+//        orderRepository.save(order);
     }
 }

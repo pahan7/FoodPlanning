@@ -6,10 +6,10 @@ function loadMeals() {
         });
 }
 
-function getUserName(){
-
-    var userName = currentUser.
-}
+//function getUserName(){
+//
+//    var userName = currentUser.
+//}
 
 
 function drawMealList() {
