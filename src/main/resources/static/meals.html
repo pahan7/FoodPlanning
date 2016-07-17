@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <hr>
-                        <button type="button" onclick="RedirectAddSession();" class="btn btn-lg btn-primary">Order</button>
+                        <button type="submit" onclick="addMealsToOrder(event);" class="btn btn-lg btn-primary">Order</button>
 
                         <hr>
                         <hr>
@@ -119,6 +119,7 @@
         </script>
 
         <script id="58meals" type="text/x-handlebars-template">
+
             <div class="meals">
                 <h2>{{cafeName}}</h2>
 
@@ -137,6 +138,7 @@
                     {{/each}}
                 </div>
             </div>
+
         </script>
 
 
@@ -146,7 +148,7 @@
                     <thead>
 
                     <tr>
-                        <th colspan="3">Cafe: {{cafeName}}</th>
+                        <th colspan="2">Cafe: {{cafeName}}</th>
                     </tr>
 
                     <tr>
@@ -157,32 +159,29 @@
 
                             <td>Price</td>
                         </div>
-                        <div class="col-md-2">
-
-                            <td>Amount</td>
-                        </div>
                     </tr>
                     </thead>
                     <tbody>
                     {{#each mealList}}
+                    <form class="mealsForm" onsubmit="addMealsToOrder();">
                     <tr class="meal">
 
                         <div class="col-md-6">
-                            <td>{{mealName}}</td>
+                            <td>
+                                <input type="submit"  id="{{mealName}}" value="Add">    {{mealName}}
+                            </td>
                         </div>
                         <div class="col-md-2">
                             <td>{{price}}</td>
                         </div>
-                        <div class="col-md-2">
-                            <td>
-                                <input type="submit" name="amount" id="amount" class="form-control" value="Add">
-                            </td>
-                        </div>
+
                     </tr>
+                        </form>>
                     </tbody>
                     {{/each}}
                 </table>
             </div>
+
         </script>
     </div>
 

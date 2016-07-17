@@ -23,6 +23,8 @@ function getCookie(userName) {
 }
 
 function drawMealList() {
+
+    createOrder();
     loadMeals().then(function (cafes) {
         var cafeListTemplate = Handlebars.compile(document.querySelector('#cafe-list').innerHTML);
         var mealsTemplate = Handlebars.compile(document.querySelector('#meals').innerHTML);
@@ -43,3 +45,28 @@ function drawMealList() {
 }
 
 drawMealList();
+
+function addMealsToOrder(){
+
+    console.log(document.getElementsByClassName('.meal:checked').value)
+    fetch('http://localhost:8080/users/orders', {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: document.getElementsByClassName('.meal:checked').value
+        })
+    });
+    event.preventDefault();
+}
+
+
+function createOrder(){
+    var client = new XMLHttpRequest();
+    var url ="http://localhost:8080/users/orders"
+    client.open("POST", url, true);
+    client.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    client.send();
+}
