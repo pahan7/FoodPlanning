@@ -23,4 +23,6 @@ public class CafeDTO {
     public void setPhoneNr(String phoneNr) {
         this.phoneNr = phoneNr;
     }
+
+
 }

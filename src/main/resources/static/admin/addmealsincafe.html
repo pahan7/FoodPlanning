@@ -57,10 +57,18 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form name="f" action="http://localhost:8080/cafes/meals" method="post" enctype="utf8">
-                                <div class="form-group">
-                                    <input type="text" name="cafeId" id="cafeId" tabindex="1" class="form-control"
-                                           placeholder="cafeId" value="" required>
-                                </div>
+                                <!--<div class="form-group">-->
+                                    <!--<input type="text" name="cafeId" id="cafeId" tabindex="1" class="form-control"-->
+                                           <!--placeholder="cafeId" value="" required>-->
+                                <!--</div>-->
+
+                                <select name="cafeId" id="cafeId" th:field="*{cafes}" multiple="multiple">
+                                    <option label="Cafe Babe" value="1" />
+                                    <option label="Cafe Babe2" value="2" />
+                                    <option label="Cafe Babe3" value="3" />
+                                    <!--<option value="" th:text="#{cafe.select.prompt}"></option>-->
+                                </select>
+
                                 <div class="form-group">
                                     <input type="text" name="mealName" id="mealName" tabindex="1" class="form-control"
                                            placeholder="mealName" value="" required>
@@ -77,6 +85,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </form>
 
                         </div>
