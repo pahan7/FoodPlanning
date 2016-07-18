@@ -10,9 +10,9 @@ function loadMeals() {
 function getCookie(userName) {
     var name = userName + "=";
     var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') {
+        while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
@@ -46,7 +46,7 @@ function drawMealList() {
 
 drawMealList();
 
-function addMealsToOrder(){
+function addMealsToOrder() {
 
     console.log(document.getElementsByClassName('.meal:checked').value)
     fetch('http://localhost:8080/users/orders', {
@@ -63,9 +63,9 @@ function addMealsToOrder(){
 }
 
 
-function createOrder(){
+function createOrder() {
     var client = new XMLHttpRequest();
-    var url ="http://localhost:8080/users/orders"
+    var url = "http://localhost:8080/users/orders"
     client.open("POST", url, true);
     client.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     client.send();

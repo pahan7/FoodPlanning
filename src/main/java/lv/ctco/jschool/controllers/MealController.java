@@ -39,7 +39,8 @@ public class MealController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<?> addOneMeal(@ModelAttribute Meal inputMeal,String cafeId, UriComponentsBuilder b) {
+    public ResponseEntity<?> addOneMeal(@ModelAttribute Meal inputMeal, String cafeId, UriComponentsBuilder b) {
+
         int cafeIdi = Integer.parseInt(cafeId);
         if (cafeRepository.exists(cafeIdi)) {
             Cafe cafe = cafeRepository.findOne(cafeIdi);
